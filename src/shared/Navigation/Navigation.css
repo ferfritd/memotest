@@ -1,0 +1,34 @@
+.navigation {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.navigation li{
+    margin-right: 2rem;
+}
+
+.navigation li:last-of-type{
+    margin-right: 0;
+}
+
+.navigation a{
+    text-decoration: none;
+    color: #2B475C;
+    font-family: 'Gaegu', cursive;
+    font-size: 1.8rem;
+    word-spacing: -.4rem;
+
+}
+
+.navigation a.active{
+    color: #5E8A75;
+}
+
+.navigation li a:hover{
+    color: #5E8A75;
+    transition: color .3s ease;
+}
