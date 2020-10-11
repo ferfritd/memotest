@@ -11,14 +11,13 @@ export default function NewGame() {
 
 
     
-    const inputArray = new Array(numberOfPairs).fill("_").map((el, i) => <Input key={i} onAddCard = {deckMakerHandler}/>)
+    const inputArray = new Array(numberOfPairs).fill("_").map((el, i) => <Input key={i}/>)
 
 
     return (
         <div>
             <form>
                 {inputArray}
-                <button onClick={deckMakerHandler}></button>
                 <button type="submit">Create deck</button>
             </form>
         </div>

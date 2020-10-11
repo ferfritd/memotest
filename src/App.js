@@ -7,6 +7,7 @@ import {
 
 import Header from './shared/Navigation/Header';
 import NewGame from './game/pages/NewGame';
+import Game from './game/pages/Game';
 
 
 import './index.css';
@@ -19,9 +20,7 @@ function App() {
         <Header/>
         <Switch>
           <Route path="/" exact>
-            <div className="temporalDiv">
-            <h1>Nothing here yet. <span>But soon...</span></h1>
-            </div>
+            <Game />
 
           </Route>
           <Route path="/about" exact>
