@@ -19,9 +19,28 @@ const reducer = (state, action) => {
 
     switch(action.type){
         case 'TURNTOFRONT':
-            const newState = {...state}
-            newState.gameLogic[action.id].isTurned = true 
-            return newState
+            if(state.turn === 0){
+                const newState = {...state}
+                newState.gameLogic[action.id].isTurned = true
+                newState.selectedCard = newState.gameLogic[action.id]
+                newState.turn = 1
+                return newState
+            }
+
+            if(state.turn === 1){
+                const newState = {...state}
+                newState.gameLogic[action.id].isTurned = true
+                if(newState.gameLogic[action.id].pair === newState.selectedCard){
+                    newState.remainingPairs = newState.remainingPairs - 1
+                    console.log(state.remainingPairs)
+                }
+                newState.selectedCard = {}
+                newState.turn = 0
+                return newState
+            }
+
+
+
         default:
             return state
 
@@ -36,6 +55,7 @@ export default function Game() {
                     cards: wordsArray,
                     remainingPairs: 2,
                     gameLogic: gameLogic,
+                    selectedCard: {},
                     turn: 0
                 }
                 )
