@@ -1,0 +1,46 @@
+.card{
+    width: calc(50% - 2rem);
+    margin: 0 1rem 1rem 0;
+    position: relative;
+    height: 30rem;
+
+    perspective: 150rem;
+    -moz-perspective: 150rem;
+
+}
+
+.card-back, .card-front{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30rem;
+    width: 100%;
+    backface-visibility: hidden;
+    transition: all 1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-back{
+    transform: rotateY(180deg);
+ 
+}
+
+.card-front{
+    font-size: 8rem;
+}
+
+.grey-background{
+    background-color: grey;
+    color: white;
+}
+
+.white-background{
+    background-color: #eeeeee;
+    color: black;
+}
+
+.card-back p{
+    font-size: 5rem;
+}

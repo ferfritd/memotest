@@ -2,7 +2,9 @@ import React, { useReducer } from 'react';
 
 import Card from '../../shared/UI/Card'
 
-const wordsArray = [['Крис', 'Крута'], ['Фер', 'круто'], ["a","b"], ["c","d"]]
+import './Game.css'
+
+const wordsArray = [['dog', 'perro'], ['cat', 'gato']]
 
 const gameLogic = wordsArray.map(pair => {
 
@@ -12,8 +14,12 @@ const gameLogic = wordsArray.map(pair => {
         firstWord.pair = secondWord
         secondWord.pair = firstWord
         
-    return [firstWord, secondWord] 
-}).flat().sort(() => {return Math.random() - 0.5})
+        return [firstWord, secondWord] 
+    }
+)
+.flat()
+.sort(() => {return Math.random() - 0.5})
+
 const reducer = (state, action) => {
 
     switch(action.type){
@@ -26,12 +32,13 @@ const reducer = (state, action) => {
                 return newState
             }
 
-            if(state.turn === 1){
+            
                 const newState = {...state}
                 newState.gameLogic[action.id].isTurned = true
                 if(newState.gameLogic[action.id].pair === newState.selectedCard){
+
                     newState.remainingPairs = newState.remainingPairs - 1
-                    console.log(state.remainingPairs)
+
                 } else {
                     newState.gameLogic[action.id].isTurned = false
                     newState.selectedCard.isTurned = false
@@ -39,7 +46,7 @@ const reducer = (state, action) => {
                 newState.selectedCard = {}
                 newState.turn = 0
                 return newState
-            }    
+                
 
         default:
             return state
@@ -47,30 +54,37 @@ const reducer = (state, action) => {
     }
 };
 
+
 export default function Game() {
 
-            const [state, dispatch] = useReducer(reducer, 
-                {
-                    cards: wordsArray,
-                    remainingPairs: wordsArray.length,
-                    gameLogic: gameLogic,
-                    selectedCard: {},
-                    turn: 0
-                }
-                )
 
-            const clickHandler = (id) => {
-                dispatch({type:'TURNTOFRONT', id:id})
-            }
-           
-                const deck = gameLogic.map((card, i) => {
-                    return <Card key={i} clicked={() => {clickHandler(i)}} info={card} />
-                })
+
+    const [state, dispatch] = useReducer(reducer, 
+        {
+            cards: wordsArray,
+            remainingPairs: wordsArray.length,
+            gameLogic: gameLogic,
+            selectedCard: {},
+            turn: 0
+        }
+        )
+
+    const clickHandler = (id) => {
+        dispatch({type:'TURNTOFRONT', id:id})
+    }
+    
+        const deck = gameLogic.map((card, i) => {
+            return <Card key={i} clicked={() => {clickHandler(i)}} info={card} />
+        })
+    
 
     return (
         <div>
             {state.remainingPairs === 0 ? <p>Ganaste!</p> : ''}
+            <div className="grid">
             {deck}
+            </div>
+            
         </div>
     )
 }
