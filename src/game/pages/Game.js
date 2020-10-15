@@ -22,19 +22,28 @@ const gameLogic = wordsArray.map(pair => {
 
 const reducer = (state, action) => {
 
+    const newState = {...state}
+
     switch(action.type){
         case 'TURNTOFRONT':
+
+            newState.gameLogic[action.id].isTurned = true
+            
             if(state.turn === 0){
-                const newState = {...state}
-                newState.gameLogic[action.id].isTurned = true
                 newState.selectedCard = newState.gameLogic[action.id]
                 newState.turn = 1
-                return newState
             }
+            if(state.turn === 1){
+                newState.turn = 2
 
+            }
+            return newState
+
+
+
+        case 'CHECKMATCH':
             
-                const newState = {...state}
-                newState.gameLogic[action.id].isTurned = true
+                
                 if(newState.gameLogic[action.id].pair === newState.selectedCard){
 
                     newState.remainingPairs = newState.remainingPairs - 1
@@ -43,6 +52,7 @@ const reducer = (state, action) => {
                     newState.gameLogic[action.id].isTurned = false
                     newState.selectedCard.isTurned = false
                 }
+
                 newState.selectedCard = {}
                 newState.turn = 0
                 return newState
@@ -70,11 +80,16 @@ export default function Game() {
         )
 
     const clickHandler = (id) => {
+        if(state.turn === 1)
+        
+            setTimeout(() => {
+                dispatch({type:'CHECKMATCH', id:id})
+            }, 1000);
         dispatch({type:'TURNTOFRONT', id:id})
     }
     
         const deck = gameLogic.map((card, i) => {
-            return <Card key={i} clicked={() => {clickHandler(i)}} info={card} />
+            return <Card turn={state.turn} key={i} clicked={() => {clickHandler(i)}} info={card} />
         })
     
 
