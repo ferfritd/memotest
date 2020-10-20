@@ -1,11 +1,15 @@
 import React, { useEffect, useReducer } from 'react';
-import {useHistory} from 'react-router-dom'
 
 import Card from '../../shared/UI/Card'
 
 import './Game.css'
 
 const wordsArray = [['dog', 'perro'], ['cat', 'gato']]
+
+const sortCards = () => {
+    return Math.random() - .5
+}
+
 
 const gameLogic = wordsArray.map(pair => {
 
@@ -18,7 +22,8 @@ const gameLogic = wordsArray.map(pair => {
         return [firstWord, secondWord] 
     }
 )
-.flat()
+.flat().sort(sortCards)
+
 
 const reducer = (state, action) => {
 
@@ -28,18 +33,18 @@ const reducer = (state, action) => {
         case 'RESTARTGAME':
 
             newState.remainingPairs = newState.cards.length
+            newState.selectedCard = null
+            newState.turn = 0
+
             newState.gameLogic.forEach(card => {
                 card.isTurned = false
                 
             })
-            newState.restartGame = true
             return newState
         
         case 'SORTCARDS':
             
-            newState.gameLogic.sort(()=>{return Math.random() - .5})
-
-            newState.restartGame = false
+            newState.gameLogic.sort(sortCards)
                 
             return newState      
             
@@ -86,12 +91,15 @@ export default function Game() {
             remainingPairs: wordsArray.length,
             gameLogic: gameLogic,
             selectedCard: {},
-            turn: 0,
-            restartGame: false,
+            turn: 0
         }
         )
         
     const restartGameHandler = () => {
+        setTimeout(() => {
+            dispatch({type:'SORTCARDS'})
+        },1000)
+
         dispatch({type:'RESTARTGAME'})
              
       }
@@ -104,14 +112,7 @@ export default function Game() {
             }, 1000);
         dispatch({type:'TURNTOFRONT', id:id})
     }
-    
-    useEffect(() =>{
-        if(state.restartGame){
-            dispatch({type:'SORTCARDS'})
-        }
-    },
-        [state.restartGame])
-        
+            
     const deck = gameLogic.map((card, i) => {
         return <Card turn={state.turn} key={i} clicked={() => {clickHandler(i)}} info={card} />
     })
