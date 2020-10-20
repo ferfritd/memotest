@@ -1,4 +1,5 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import {useHistory} from 'react-router-dom'
 
 import Card from '../../shared/UI/Card'
 
@@ -18,13 +19,30 @@ const gameLogic = wordsArray.map(pair => {
     }
 )
 .flat()
-.sort(() => {return Math.random() - 0.5})
 
 const reducer = (state, action) => {
 
     const newState = {...state}
 
     switch(action.type){
+        case 'RESTARTGAME':
+
+            newState.remainingPairs = newState.cards.length
+            newState.gameLogic.forEach(card => {
+                card.isTurned = false
+                
+            })
+            newState.restartGame = true
+            return newState
+        
+        case 'SORTCARDS':
+            
+            newState.gameLogic.sort(()=>{return Math.random() - .5})
+
+            newState.restartGame = false
+                
+            return newState      
+            
         case 'TURNTOFRONT':
 
             newState.gameLogic[action.id].isTurned = true
@@ -35,29 +53,24 @@ const reducer = (state, action) => {
             }
             if(state.turn === 1){
                 newState.turn = 2
-
             }
             return newState
 
-
-
         case 'CHECKMATCH':
+                        
+            if(newState.gameLogic[action.id].pair === newState.selectedCard){
+
+                newState.remainingPairs = newState.remainingPairs - 1
+
+            } else {
+                newState.gameLogic[action.id].isTurned = false
+                newState.selectedCard.isTurned = false
+            }
+
+            newState.selectedCard = {}
+            newState.turn = 0
+            return newState
             
-                
-                if(newState.gameLogic[action.id].pair === newState.selectedCard){
-
-                    newState.remainingPairs = newState.remainingPairs - 1
-
-                } else {
-                    newState.gameLogic[action.id].isTurned = false
-                    newState.selectedCard.isTurned = false
-                }
-
-                newState.selectedCard = {}
-                newState.turn = 0
-                return newState
-                
-
         default:
             return state
 
@@ -67,17 +80,21 @@ const reducer = (state, action) => {
 
 export default function Game() {
 
-
-
     const [state, dispatch] = useReducer(reducer, 
         {
             cards: wordsArray,
             remainingPairs: wordsArray.length,
             gameLogic: gameLogic,
             selectedCard: {},
-            turn: 0
+            turn: 0,
+            restartGame: false,
         }
         )
+        
+    const restartGameHandler = () => {
+        dispatch({type:'RESTARTGAME'})
+             
+      }
 
     const clickHandler = (id) => {
         if(state.turn === 1)
@@ -88,16 +105,24 @@ export default function Game() {
         dispatch({type:'TURNTOFRONT', id:id})
     }
     
-        const deck = gameLogic.map((card, i) => {
-            return <Card turn={state.turn} key={i} clicked={() => {clickHandler(i)}} info={card} />
-        })
-    
+    useEffect(() =>{
+        if(state.restartGame){
+            dispatch({type:'SORTCARDS'})
+        }
+    },
+        [state.restartGame])
+        
+    const deck = gameLogic.map((card, i) => {
+        return <Card turn={state.turn} key={i} clicked={() => {clickHandler(i)}} info={card} />
+    })
+
 
     return (
         <div>
-            {state.remainingPairs === 0 ? <p>Ganaste!</p> : ''}
+            {state.remainingPairs === 0 ? <p>You win 😎</p> : ''}
             <div className="grid">
             {deck}
+            <button onClick={restartGameHandler}>Restart</button>
             </div>
             
         </div>
