@@ -1,6 +1,7 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 
 import Card from '../../shared/UI/Card'
+import Modal from '../../shared/UI/Modal'
 
 import './Game.css'
 
@@ -120,7 +121,7 @@ export default function Game() {
 
     return (
         <div>
-            {state.remainingPairs === 0 ? <p>You win 😎</p> : ''}
+            {state.remainingPairs === 0 ? <Modal active restartGameHandler={restartGameHandler}/> : <Modal active={false}/>}
             <div className="grid">
             {deck}
             <button onClick={restartGameHandler}>Restart</button>

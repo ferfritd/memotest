@@ -1,0 +1,26 @@
+.modal{
+    position: absolute;
+    left: 50%;
+    top: -50%;
+    transform: translate(-50%, -50%);
+
+    padding: 4rem;
+    min-width: 60vw;
+    min-height: 36vw;
+    background-color: #e9e6e1;
+    color: #2B475C;
+    border: 1px solid black;
+    border-radius: 1rem;
+    z-index: 1000;
+    
+    transition: all 3s ease-out;
+}
+
+.modal h2 {
+    font-size: 5rem;
+}
+
+.modal-active{
+    top: 50%;
+}
+
