@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 import Card from '../../shared/UI/Card'
 import Modal from '../../shared/UI/Modal'
@@ -117,6 +117,17 @@ export default function Game() {
     const deck = gameLogic.map((card, i) => {
         return <Card turn={state.turn} key={i} clicked={() => {clickHandler(i)}} info={card} />
     })
+
+    useEffect(() => {
+
+        restartGameHandler()
+
+        // Variante para emular "ComponentWillUnmount"
+        // return () => {
+        //     restartGameHandler()
+        // }  
+        
+    }, [])
 
 
     return (
