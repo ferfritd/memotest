@@ -11,6 +11,24 @@ const sortCards = () => {
     return Math.random() - .5
 }
 
+const restartGame = state => {
+    state.remainingPairs = state.cards.length
+    state.selectedCard = null
+    state.turn = 0
+
+    state.gameLogic.forEach(card => {
+        card.isTurned = false
+        
+    })
+}
+
+const resetState = state => {
+    restartGame(state)
+
+    state.gameLogic.sort(sortCards)
+    return state       
+}
+
 
 const gameLogic = wordsArray.map(pair => {
 
@@ -25,7 +43,6 @@ const gameLogic = wordsArray.map(pair => {
 )
 .flat().sort(sortCards)
 
-
 const reducer = (state, action) => {
 
     const newState = {...state}
@@ -33,18 +50,12 @@ const reducer = (state, action) => {
     switch(action.type){
         case 'RESTARTGAME':
 
-            newState.remainingPairs = newState.cards.length
-            newState.selectedCard = null
-            newState.turn = 0
+            restartGame(newState)
 
-            newState.gameLogic.forEach(card => {
-                card.isTurned = false
-                
-            })
             return newState
         
         case 'SORTCARDS':
-            
+          
             newState.gameLogic.sort(sortCards)
                 
             return newState      
@@ -76,7 +87,9 @@ const reducer = (state, action) => {
             newState.selectedCard = {}
             newState.turn = 0
             return newState
-            
+        case 'RESETSTATE':
+            resetState(newState)
+            break
         default:
             return state
 
@@ -93,7 +106,7 @@ export default function Game() {
             gameLogic: gameLogic,
             selectedCard: {},
             turn: 0
-        }
+        }, resetState
         )
         
     const restartGameHandler = () => {
@@ -119,13 +132,9 @@ export default function Game() {
     })
 
     useEffect(() => {
-
-        restartGameHandler()
-
-        // Variante para emular "ComponentWillUnmount"
-        // return () => {
-        //     restartGameHandler()
-        // }  
+        return () => {
+            dispatch({type:'RESETSTATE'})
+        }  
         
     }, [])
 
