@@ -1,11 +1,14 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { Fragment, useEffect, useReducer } from 'react';
 
 import Card from '../../shared/UI/Card'
 import Modal from '../../shared/UI/Modal'
+import Button from "../../shared/UI/Button";
 
 import './Game.css'
 
 const wordsArray = [['dog', 'perro'], ['cat', 'gato']]
+
+// const wordsArray = new Array(12). fill(['a', 'b'])
 
 const sortCards = () => {
     return Math.random() - .5
@@ -97,7 +100,7 @@ const reducer = (state, action) => {
 };
 
 
-export default function Game() {
+export default function Game(props) {
 
     const [state, dispatch] = useReducer(reducer, 
         {
@@ -140,13 +143,19 @@ export default function Game() {
 
 
     return (
-        <div>
-            {state.remainingPairs === 0 ? <Modal active restartGameHandler={restartGameHandler}/> : <Modal active={false}/>}
-            <div className="grid">
-            {deck}
-            <button onClick={restartGameHandler}>Restart</button>
-            </div>
+        <main>
             
+        <main className= "game-table centered">
+            {state.remainingPairs === 0 ? <Modal active restartGameHandler={restartGameHandler}/> : <Modal active={false}/>}
+            
+            <h1>{props.gameName || 'MY GAME'}</h1>
+            <div className="grid">
+                {deck}
+            </div>
+        </main>
+        <div className="centered button-container">
+            <Button classes="button button-main" click={restartGameHandler}>Restart</Button>      
         </div>
+        </main>
     )
 }

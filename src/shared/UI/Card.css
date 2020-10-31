@@ -2,18 +2,21 @@
     width: calc(50% - 2rem);
     margin: 0 1rem 1rem 0;
     position: relative;
-    height: 30rem;
+    height: 20rem;
+    width: 20rem;
+    border-radius: 1rem;
 
     perspective: 150rem;
     -moz-perspective: 150rem;
 
 }
 
+
 .card-back, .card-front{
     position: absolute;
     top: 0;
     left: 0;
-    height: 30rem;
+    height: 20rem;
     width: 100%;
     backface-visibility: hidden;
     transition: all 1s ease;
@@ -36,7 +39,7 @@
 }
 
 .white-background{
-    background-color: #eeeeee;
+    background-color: #dddddd;
     color: black;
 }
 

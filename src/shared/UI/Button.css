@@ -1,0 +1,30 @@
+.button{
+    padding: 2rem 6rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 1rem;
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 2rem;
+    transition: all .3s ease-in-out;
+    text-transform: uppercase;
+}
+
+.button-main,
+.button-inverted:hover{
+    background-color: #2B475C;
+    color: #e9e6e1;
+    border: 2px solid transparent;
+}
+
+.button-inverted,
+.button-main:hover{
+    color: #2B475C;
+    background-color: #e9e6e1;
+    border: 2px solid #2B475C;
+}
+
+button:hover{
+    transform: scale(1.05);
+}

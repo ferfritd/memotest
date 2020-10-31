@@ -1,12 +1,18 @@
 .header{
-    height: 6rem;
+    height: 8rem;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 2rem;
+    margin-bottom: 3rem;
     background-color: #e9e6e1;
     color: #2b475c;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.11), 
+              0 2px 2px rgba(0,0,0,0.11), 
+              0 4px 4px rgba(0,0,0,0.11), 
+              0 6px 8px rgba(0,0,0,0.11),
+              0 8px 16px rgba(0,0,0,0.11);
 }
 
 .logo {

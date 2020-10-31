@@ -33,6 +33,7 @@
   body {
     margin: 0;
     font-size: 1.6rem;
+    background-color: #eeeeee;
   }
   
   /**
@@ -64,6 +65,11 @@
   h1 {
     font-size: 2em;
     margin: 0.67em 0;
+  }
+
+  .centered{
+    width: 98%;
+    margin: 0 auto;
   }
   
   /* Grouping content
