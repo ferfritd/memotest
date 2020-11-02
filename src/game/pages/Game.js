@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 import Card from '../../shared/UI/Card'
 import Modal from '../../shared/UI/Modal'
@@ -7,8 +7,6 @@ import Button from "../../shared/UI/Button";
 import './Game.css'
 
 const wordsArray = [['dog', 'perro'], ['cat', 'gato']]
-
-// const wordsArray = new Array(12). fill(['a', 'b'])
 
 const sortCards = () => {
     return Math.random() - .5
