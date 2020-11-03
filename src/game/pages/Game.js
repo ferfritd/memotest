@@ -86,7 +86,7 @@ const reducer = (state, action) => {
 
 export default function Game(props) {
 
-    const {deckState} = useContext(DeckContext)
+    const {deckState, gameTitle} = useContext(DeckContext)
     
     const gameLogic = deckState.map(pair => {
 
@@ -146,14 +146,14 @@ export default function Game(props) {
     return (
         <main>
             
-        <main className= "game-table centered">
+        <div className= "game-table centered">
             {state.remainingPairs === 0 ? <Modal active restartGameHandler={restartGameHandler}/> : <Modal active={false}/>}
             
-            <h1>{props.gameName || 'MY GAME'}</h1>
+            <h1>{gameTitle}</h1>
             <div className="grid">
                 {deck}
             </div>
-        </main>
+        </div>
         <div className="centered button-container">
             <Button classes="button button-main" click={restartGameHandler}>Restart</Button>      
         </div>

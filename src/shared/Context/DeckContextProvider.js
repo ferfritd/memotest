@@ -5,6 +5,7 @@ export const DeckContext = createContext()
 export default function DeckContextProvider(props) {
 
     const [deckState, setDeckState] = useState([['perro', 'dog'],['gato', 'cat']])
+    const [deckTitle, setDeckTitle] = useState("My game")
 
     const createDeckHandler = deck => {
       setDeckState(deck)
@@ -12,7 +13,11 @@ export default function DeckContextProvider(props) {
 
 
     return (
-      <DeckContext.Provider value={{deckState, onCreateDeck:(deck) => createDeckHandler(deck)}}>
+      <DeckContext.Provider value={
+        {deckState,
+         gameTitle:deckTitle, 
+         onCreateDeck:(deck) => createDeckHandler(deck),
+         onsetTitle:(title)=> setDeckTitle(title)}}>
         {props.children}
       </DeckContext.Provider>
     )

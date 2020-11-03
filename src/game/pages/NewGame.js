@@ -1,4 +1,5 @@
 import React, { useReducer, useEffect, useContext } from 'react'
+import { useHistory } from "react-router-dom";
 import { v4 as uuidV4 } from "uuid";
 
 import {DeckContext} from '../../shared/Context/DeckContextProvider'
@@ -12,6 +13,9 @@ const formReducer = (state, action) => {
     
     let newState = {...state}
     switch(action.type){
+        case 'CHANGETITLE':
+            newState.title = action.value
+            return newState
         case 'INPUTCHANGE':
             newState.inputs.forEach(pair => {
                 let firstId = pair.id.concat('-firstInput')
@@ -30,7 +34,6 @@ const formReducer = (state, action) => {
                 if(pair.pairs[0] && pair.pairs[1]){
                     finalDeck.push(pair.pairs)
                 }
-                pair.pairs = ['', '']
 
             })
             newState.deck = finalDeck
@@ -43,7 +46,9 @@ const formReducer = (state, action) => {
 
 export default function NewGame() {
 
-    const {onCreateDeck} = useContext(DeckContext)
+    const history = useHistory()
+
+    const {onCreateDeck, onsetTitle} = useContext(DeckContext)
 
 
     const [state, dispatch] = useReducer(formReducer, 
@@ -54,9 +59,14 @@ export default function NewGame() {
                 {id:uuidV4(),pairs:['', '']},
                 {id:uuidV4(),pairs:['', '']},
             ],
+            title: '',
             deck: []
             
         })
+
+    const changeTitleHandler = (id, value) => {
+        dispatch({type:'CHANGETITLE', value:value})
+    }
     
 
     const inputChangeHandler = (id, value) => {
@@ -71,19 +81,24 @@ export default function NewGame() {
     const inputArray = state.inputs.map((el) => {
         return (<div key={el.id} id={el.id} className="inputs-field">
         <Input type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler}/>
+        <p className="dash">-</p>
         <Input type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler}/>
         </div>)
         })
 
         useEffect(() => {
-            if(state.deck.length > 0){
+            if(state.deck.length > 0 && state.title.length > 0){
                 onCreateDeck(state.deck)
+                onsetTitle(state.title)
+                history.push('/')
             }
         }, [state.deck])
 
     return (
         <main className="centered">
-            <form onSubmit={submitFormHandler}>
+            <h1  style={{textAlign:"center", marginBottom:"4rem"}}>Create New Deck</h1>
+            <form className="box deck-form" onSubmit={submitFormHandler}>
+                <Input id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
                 {inputArray}
                 <div className="button-container">
                 <Button type="submit" classes="button button-main">Create deck</Button>
