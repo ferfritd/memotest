@@ -1,12 +1,12 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useContext } from 'react';
+
+import { DeckContext } from "../../shared/Context/DeckContextProvider";
 
 import Card from '../../shared/UI/Card'
 import Modal from '../../shared/UI/Modal'
 import Button from "../../shared/UI/Button";
 
 import './Game.css'
-
-const wordsArray = [['dog', 'perro'], ['cat', 'gato']]
 
 const sortCards = () => {
     return Math.random() - .5
@@ -29,20 +29,6 @@ const resetState = state => {
     state.gameLogic.sort(sortCards)
     return state       
 }
-
-
-const gameLogic = wordsArray.map(pair => {
-
-        const firstWord = {value:pair[0], isTurned:false}
-        const secondWord = {value:pair[1], isTurned:false}
-        
-        firstWord.pair = secondWord
-        secondWord.pair = firstWord
-        
-        return [firstWord, secondWord] 
-    }
-)
-.flat().sort(sortCards)
 
 const reducer = (state, action) => {
 
@@ -100,16 +86,32 @@ const reducer = (state, action) => {
 
 export default function Game(props) {
 
+    const {deckState} = useContext(DeckContext)
+    
+    const gameLogic = deckState.map(pair => {
+
+        const firstWord = {value:pair[0], isTurned:false}
+        const secondWord = {value:pair[1], isTurned:false}
+        
+        firstWord.pair = secondWord
+        secondWord.pair = firstWord
+        
+        return [firstWord, secondWord] 
+    }
+)
+.flat().sort(sortCards);
+
+
     const [state, dispatch] = useReducer(reducer, 
         {
-            cards: wordsArray,
-            remainingPairs: wordsArray.length,
+            cards: deckState,
+            remainingPairs: deckState.length,
             gameLogic: gameLogic,
             selectedCard: {},
             turn: 0
         }, resetState
         )
-        
+
     const restartGameHandler = () => {
         setTimeout(() => {
             dispatch({type:'SORTCARDS'})
@@ -128,11 +130,12 @@ export default function Game(props) {
         dispatch({type:'TURNTOFRONT', id:id})
     }
             
-    const deck = gameLogic.map((card, i) => {
+    const deck = state.gameLogic.map((card, i) => {
         return <Card turn={state.turn} key={i} clicked={() => {clickHandler(i)}} info={card} />
     })
 
     useEffect(() => {
+
         return () => {
             dispatch({type:'RESETSTATE'})
         }  

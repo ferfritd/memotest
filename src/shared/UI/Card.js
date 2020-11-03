@@ -13,7 +13,7 @@ export default function Card({info, clicked, turn}) {
                     <p>
                         {info.value}
                     </p>
-                    </div>
+                </div>
 
             </div>
     )
