@@ -90,6 +90,7 @@ export default function NewGame() {
             if(state.deck.length > 0 && state.title.length > 0){
                 onCreateDeck(state.deck)
                 onsetTitle(state.title)
+                localStorage.setItem('currentDeck',JSON.stringify({deck:state.deck, title:state.title}))
                 history.push('/')
             }
         }, [state.deck])

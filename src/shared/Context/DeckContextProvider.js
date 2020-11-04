@@ -4,8 +4,14 @@ export const DeckContext = createContext()
 
 export default function DeckContextProvider(props) {
 
-    const [deckState, setDeckState] = useState([['perro', 'dog'],['gato', 'cat']])
-    const [deckTitle, setDeckTitle] = useState("My game")
+     const myDeck = localStorage.getItem('currentDeck')
+
+     if(myDeck){
+       var {deck, title} = JSON.parse(myDeck);
+     }
+
+    const [deckState, setDeckState] = useState(deck || [['perro', 'dog'],['gato', 'cat']])
+    const [deckTitle, setDeckTitle] = useState(title ||"My game")
 
     const createDeckHandler = deck => {
       setDeckState(deck)
