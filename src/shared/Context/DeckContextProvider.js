@@ -12,8 +12,11 @@ export default function DeckContextProvider(props) {
        var myCollection = JSON.parse(deckCollection)
      }
 
+
     const [deckState, setDeckState] = useState(deck || [['perro', 'dog'],['gato', 'cat']])
     const [deckTitle, setDeckTitle] = useState(title ||"My game")
+
+
 
     const [collectionState, setCollectionState] = useState(myCollection || [])
 

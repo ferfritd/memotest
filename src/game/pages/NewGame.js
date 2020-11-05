@@ -94,12 +94,15 @@ export default function NewGame() {
         })
 
         useEffect(() => {
+
             if(state.deck.length > 0 && state.title.length > 0){
                 onCreateDeck(state.deck)
                 onsetTitle(state.title)
 
-
-                const deck = {id:uuidV4(), title:state.title, deck:state.deck}
+                const date = new Date().toLocaleDateString()
+                const time = new Date().toLocaleTimeString()
+                
+                const deck = {id:uuidV4(), title:state.title, deck:state.deck, timeStamp:`Created on ${date} at ${time}`}
                 let deckCollection = JSON.parse(localStorage.getItem
                 ('deckCollection'))
 
