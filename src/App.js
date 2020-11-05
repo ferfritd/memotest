@@ -11,6 +11,7 @@ import DeckContextProvider from './shared/Context/DeckContextProvider'
 import Header from './shared/Navigation/Header';
 import NewGame from './game/pages/NewGame';
 import Game from './game/pages/Game';
+import MyGames from './game/pages/MyGames'
 
 
 
@@ -33,6 +34,9 @@ function App() {
             </Route>
             <Route path="/game" exact>
               <NewGame/>
+            </Route>
+            <Route path="/my-games" exact>
+              <MyGames/>
             </Route>
             <Redirect to='/'/>
           </Switch>

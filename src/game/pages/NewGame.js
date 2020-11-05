@@ -28,6 +28,9 @@ const formReducer = (state, action) => {
                 }
             });
             return newState
+        case "ADDINPUT":
+            newState.inputs.push({id:uuidV4(), pairs:['','']})
+            return newState
         case 'SUBMITFORM':
             const finalDeck = []
             newState.inputs.forEach(pair => {
@@ -48,7 +51,7 @@ export default function NewGame() {
 
     const history = useHistory()
 
-    const {onCreateDeck, onsetTitle} = useContext(DeckContext)
+    const {onCreateDeck, onsetTitle, onSetCollection} = useContext(DeckContext)
 
 
     const [state, dispatch] = useReducer(formReducer, 
@@ -73,6 +76,10 @@ export default function NewGame() {
         dispatch({type:'INPUTCHANGE', id:id, value:value})
     }
 
+    const addInputHandler = () => {
+        dispatch({type:"ADDINPUT"})
+    } 
+
     const submitFormHandler = e => {
         e.preventDefault()
         dispatch({type:'SUBMITFORM'}) 
@@ -90,7 +97,25 @@ export default function NewGame() {
             if(state.deck.length > 0 && state.title.length > 0){
                 onCreateDeck(state.deck)
                 onsetTitle(state.title)
-                localStorage.setItem('currentDeck',JSON.stringify({deck:state.deck, title:state.title}))
+
+
+                const deck = {id:uuidV4(), title:state.title, deck:state.deck}
+                let deckCollection = JSON.parse(localStorage.getItem
+                ('deckCollection'))
+
+
+                if(!deckCollection){
+                    localStorage.setItem('deckCollection', JSON.stringify([deck]))
+                    deckCollection = JSON.parse(localStorage.getItem
+                        ('deckCollection')) 
+                } else {
+                    deckCollection.push({...deck})
+                    localStorage.setItem('deckCollection', JSON.stringify(deckCollection))
+                }
+
+                onSetCollection(deckCollection)
+
+                localStorage.setItem('currentDeck',JSON.stringify(deck))
                 history.push('/')
             }
         }, [state.deck])
@@ -101,6 +126,7 @@ export default function NewGame() {
             <form className="box deck-form" onSubmit={submitFormHandler}>
                 <Input id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
                 {inputArray}
+                <Button type="button" classes="button button-main" click={addInputHandler}>New Pair</Button>
                 <div className="button-container">
                 <Button type="submit" classes="button button-main">Create deck</Button>
                 </div>

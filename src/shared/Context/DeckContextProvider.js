@@ -4,14 +4,18 @@ export const DeckContext = createContext()
 
 export default function DeckContextProvider(props) {
 
-     const myDeck = localStorage.getItem('currentDeck')
+     const currentDeck = localStorage.getItem('currentDeck')
+     const deckCollection = localStorage.getItem('deckCollection')
 
-     if(myDeck){
-       var {deck, title} = JSON.parse(myDeck);
+     if(currentDeck){
+       var {title, deck} = JSON.parse(currentDeck);
+       var myCollection = JSON.parse(deckCollection)
      }
 
     const [deckState, setDeckState] = useState(deck || [['perro', 'dog'],['gato', 'cat']])
     const [deckTitle, setDeckTitle] = useState(title ||"My game")
+
+    const [collectionState, setCollectionState] = useState(myCollection || [])
 
     const createDeckHandler = deck => {
       setDeckState(deck)
@@ -21,9 +25,12 @@ export default function DeckContextProvider(props) {
     return (
       <DeckContext.Provider value={
         {deckState,
-         gameTitle:deckTitle, 
+         gameTitle:deckTitle,
+         collection:collectionState,
          onCreateDeck:(deck) => createDeckHandler(deck),
-         onsetTitle:(title)=> setDeckTitle(title)}}>
+         onsetTitle:(title)=> setDeckTitle(title),
+         onSetCollection:(collection) => setCollectionState(collection)}}
+         >
         {props.children}
       </DeckContext.Provider>
     )

@@ -18,6 +18,11 @@ export default function Navigation() {
                         New Game
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink to="/my-games"exact>
+                        My Games
+                    </NavLink>
+                </li>
             </ul>
         </nav>
     )
