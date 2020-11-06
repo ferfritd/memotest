@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 
 import {DeckContext} from '../../shared/Context/DeckContextProvider' 
+import useDidMountEffect from '../../shared/hooks/useDidMountEffect';
 
 import Button from '../../shared/UI/Button'
 
@@ -10,33 +11,54 @@ export default function MyGames() {
 
     const history = useHistory()
 
-    const {collection, onCreateDeck, onsetTitle} = useContext(DeckContext)
+    const {collection, deckState, onCreateDeck, onsetTitle, onSetCollection} = useContext(DeckContext)
 
-    const [deckState, setstate] = useState(null)
+    const [deck, setstate] = useState(deckState)
+    const [collectionState, setCollectionState] = useState(collection)
 
     const playGameHandler = (id) => {
-
-
-        const selectedDeck = collection.filter( deck => {
+        const selectedDeck = collectionState.filter( deck => {
             return deck.id === id
         })
 
         setstate(selectedDeck[0])
+        localStorage.setItem('currentDeck', JSON.stringify(selectedDeck[0]))
     }
 
-    useEffect(()=>{         
-        if(deckState){
-            localStorage.setItem('currentDeck', JSON.stringify(deckState))
-            onCreateDeck(deckState.deck)
-            onsetTitle(deckState.title)
-            history.push('/')
+    const deleteDeckHandler = (id) => {
+        const selectedDecks = collectionState.filter( deck => {
+            return deck.id !== id
+        })
+
+        const removedDeck = collectionState.filter( deck => {
+            return deck.id === id
+        })
+
+        localStorage.setItem('deckCollection', JSON.stringify(selectedDecks))
+        console.log(removedDeck, deck)
+        if(removedDeck.id === deck.id){
+        localStorage.setItem('currentDeck', JSON.stringify([]))
         }
-    },[deckState])
+        setCollectionState(selectedDecks)
+    }
+
+    useDidMountEffect(()=>{         
+        onCreateDeck(deck.deck)
+        onsetTitle(deck.title)
+        history.push('/')
+        
+    },[deck])
+
+    useDidMountEffect(() => {
+        onSetCollection(collectionState)
+        onCreateDeck([['Perro', 'Dog'], ['Gato', 'Cat']])
+        onsetTitle("My Game")
+    },[collectionState])
 
     const myGames = 
-        collection.length > 0 ?
+        collectionState.length > 0 ?
         <ul>
-            {collection.reverse().map(deck => {
+            {collectionState.reverse().map(deck => {
                 return (<div key={deck.id}>
                             <li>
                                 <p>
@@ -55,7 +77,7 @@ export default function MyGames() {
                             </li>
                             <Button type="button" click={() => playGameHandler(deck.id)}>Play</Button>
                             <Button>Edit</Button>
-                            <Button>Delete</Button>
+                            <Button click={() => deleteDeckHandler(deck.id)}>Delete</Button>
                        </div>)
                         
             })}
