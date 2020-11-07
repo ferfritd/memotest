@@ -12,6 +12,7 @@ import Header from './shared/Navigation/Header';
 import NewGame from './game/pages/NewGame';
 import Game from './game/pages/Game';
 import MyGames from './game/pages/MyGames'
+import EditGame from './game/pages/EditGame'
 
 
 
@@ -27,7 +28,6 @@ function App() {
           <Switch>
             <Route path="/" exact>
               <Game />
-
             </Route>
             <Route path="/about" exact>
               <h1>Somos nosotros</h1>
@@ -38,6 +38,9 @@ function App() {
             <Route path="/my-games" exact>
               <MyGames/>
             </Route>
+           <Route path="/my-games/:deckId">
+              <EditGame/>
+           </Route>
             <Redirect to='/'/>
           </Switch>
         </Router>  

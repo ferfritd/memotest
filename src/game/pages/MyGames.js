@@ -1,6 +1,5 @@
 import React, {useContext, useState} from 'react'
-import { useEffect } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import {DeckContext} from '../../shared/Context/DeckContextProvider' 
 import useDidMountEffect from '../../shared/hooks/useDidMountEffect';
@@ -35,7 +34,7 @@ export default function MyGames() {
         })
 
         localStorage.setItem('deckCollection', JSON.stringify(selectedDecks))
-        console.log(removedDeck, deck)
+        
         if(removedDeck.id === deck.id){
         localStorage.setItem('currentDeck', JSON.stringify([]))
         }
@@ -50,6 +49,7 @@ export default function MyGames() {
     },[deck])
 
     useDidMountEffect(() => {
+        console.log('dado vuelta')
         onSetCollection(collectionState)
         onCreateDeck([['Perro', 'Dog'], ['Gato', 'Cat']])
         onsetTitle("My Game")
@@ -58,7 +58,7 @@ export default function MyGames() {
     const myGames = 
         collectionState.length > 0 ?
         <ul>
-            {collectionState.reverse().map(deck => {
+            {collectionState.map(deck => {
                 return (<div key={deck.id}>
                             <li>
                                 <p>
@@ -76,7 +76,9 @@ export default function MyGames() {
                                 </ul>
                             </li>
                             <Button type="button" click={() => playGameHandler(deck.id)}>Play</Button>
+                            <Link to={`/my-games/${deck.id}`}>
                             <Button>Edit</Button>
+                            </Link>
                             <Button click={() => deleteDeckHandler(deck.id)}>Delete</Button>
                        </div>)
                         

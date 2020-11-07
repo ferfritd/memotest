@@ -1,51 +1,15 @@
-import React, { useReducer, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useHistory } from "react-router-dom";
 import { v4 as uuidV4 } from "uuid";
 
-import {DeckContext} from '../../shared/Context/DeckContextProvider'
+import { DeckContext } from '../../shared/Context/DeckContextProvider'
+import useForm from '../../shared/hooks/useForm'
 
 import Input from '../Components/input'
 import Button from "../../shared/UI/Button";
 
-import "./NewGame.css";
+import "./GameForm.css";
 
-const formReducer = (state, action) => {
-    
-    let newState = {...state}
-    switch(action.type){
-        case 'CHANGETITLE':
-            newState.title = action.value
-            return newState
-        case 'INPUTCHANGE':
-            newState.inputs.forEach(pair => {
-                let firstId = pair.id.concat('-firstInput')
-                let secondId = pair.id.concat('-secondInput')
-                if(firstId === action.id){
-                    pair.pairs[0] = action.value
-                }
-                if(secondId === action.id){
-                    pair.pairs[1] = action.value
-                }
-            });
-            return newState
-        case "ADDINPUT":
-            newState.inputs.push({id:uuidV4(), pairs:['','']})
-            return newState
-        case 'SUBMITFORM':
-            const finalDeck = []
-            newState.inputs.forEach(pair => {
-                if(pair.pairs[0] && pair.pairs[1]){
-                    finalDeck.push(pair.pairs)
-                }
-
-            })
-            newState.deck = finalDeck
-            
-            return newState
-        default:
-            return newState
-    }
-}
 
 export default function NewGame() {
 
@@ -53,37 +17,7 @@ export default function NewGame() {
 
     const {onCreateDeck, onsetTitle, onSetCollection} = useContext(DeckContext)
 
-
-    const [state, dispatch] = useReducer(formReducer, 
-        {
-            inputs:[
-                {id:uuidV4(),pairs:['', '']},
-                {id:uuidV4(),pairs:['', '']},
-                {id:uuidV4(),pairs:['', '']},
-                {id:uuidV4(),pairs:['', '']},
-            ],
-            title: '',
-            deck: []
-            
-        })
-
-    const changeTitleHandler = (id, value) => {
-        dispatch({type:'CHANGETITLE', value:value})
-    }
-    
-
-    const inputChangeHandler = (id, value) => {
-        dispatch({type:'INPUTCHANGE', id:id, value:value})
-    }
-
-    const addInputHandler = () => {
-        dispatch({type:"ADDINPUT"})
-    } 
-
-    const submitFormHandler = e => {
-        e.preventDefault()
-        dispatch({type:'SUBMITFORM'}) 
-    }
+    const [state,{inputChangeHandler, addInputHandler, changeTitleHandler, submitFormHandler}] = useForm('', [])
 
     const inputArray = state.inputs.map((el) => {
         return (<div key={el.id} id={el.id} className="inputs-field">
@@ -112,7 +46,7 @@ export default function NewGame() {
                     deckCollection = JSON.parse(localStorage.getItem
                         ('deckCollection')) 
                 } else {
-                    deckCollection.push({...deck})
+                    deckCollection.unshift({...deck})
                     localStorage.setItem('deckCollection', JSON.stringify(deckCollection))
                 }
 
