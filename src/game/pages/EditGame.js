@@ -25,10 +25,11 @@ export default function EditGame() {
         return deck.id === deckId
     })[0]
 
-    const [state, {inputChangeHandler, changeTitleHandler, addInputHandler, submitFormHandler}] = useForm(selectedDeck.title, selectedDeck.deck)
+    const [state, {inputChangeHandler, changeTitleHandler, addInputHandler,removeInputHandler, submitFormHandler}] = useForm(selectedDeck.title, selectedDeck.deck)
 
     const inputArray = state.inputs.map((el) => {
         return (<div key={el.id} id={el.id} className="inputs-field">
+        <p className="remove-input" onClick={()=>removeInputHandler(el.id)}>Remove</p>
         <Input type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler}/>
         <p className="dash">-</p>
         <Input type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler}/>

@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react'
 import { useHistory, Link } from "react-router-dom";
 
-import {DeckContext} from '../../shared/Context/DeckContextProvider' 
+import { DeckContext } from '../../shared/Context/DeckContextProvider' 
 import useDidMountEffect from '../../shared/hooks/useDidMountEffect';
 
 import Button from '../../shared/UI/Button'
@@ -49,7 +49,6 @@ export default function MyGames() {
     },[deck])
 
     useDidMountEffect(() => {
-        console.log('dado vuelta')
         onSetCollection(collectionState)
         onCreateDeck([['Perro', 'Dog'], ['Gato', 'Cat']])
         onsetTitle("My Game")

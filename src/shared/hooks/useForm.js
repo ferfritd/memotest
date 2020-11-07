@@ -24,6 +24,18 @@ const formReducer = (state, action) => {
         case "ADDINPUT":
             newState.inputs.push({id:uuidV4(), pairs:['','']})
             return newState
+        case 'REMOVEINPUT':
+
+        if(newState.inputs.length > 1){
+            const filteredState = newState.inputs.filter(input => {
+                return input.id !== action.inputId
+            })
+
+            newState = {...newState, inputs:filteredState}
+        }
+        
+            return newState
+
         case 'SUBMITFORM':
             const finalDeck = []
             newState.inputs.forEach(pair => {
@@ -77,11 +89,15 @@ export default function useForm(title, deck) {
         const addInputHandler = () => {
             dispatch({type:"ADDINPUT"})
         }
+
+        const removeInputHandler = (inputId) => {
+            dispatch({type:'REMOVEINPUT', inputId:inputId})
+        }
     
         const submitFormHandler = e => {
             e.preventDefault()
             dispatch({type:'SUBMITFORM'}) 
         }
      
-    return [state, {inputChangeHandler, changeTitleHandler, addInputHandler, submitFormHandler}]
+    return [state, {inputChangeHandler, changeTitleHandler, addInputHandler, removeInputHandler, submitFormHandler}]
 }
