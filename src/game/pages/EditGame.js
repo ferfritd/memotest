@@ -8,7 +8,8 @@ import useForm from '../../shared/hooks/useForm'
 import useDidMountEffect from '../../shared/hooks/useDidMountEffect'
 
 import Input from '../Components/input'
-import Button from "../../shared/UI/Button";
+import Button from "../../shared/UI/Button"
+import Box from '../../shared/UI/Box'
 
 import "./GameForm.css";
 
@@ -66,16 +67,20 @@ export default function EditGame() {
 
 
     return (
-        <main className="centered">
-            <h1  style={{textAlign:"center", marginBottom:"4rem"}}>Edit Deck</h1>
-            <form className="box deck-form" onSubmit={submitFormHandler}>
-                <Input value={state.title} id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
-                {inputArray}
-                <Button type="button" classes="button button-main" click={addInputHandler}>New Pair</Button>
-                <div className="button-container">
-                <Button type="submit" classes="button button-main">Edit deck</Button>
-                </div>
-            </form>
-        </main>
+        <React.Fragment>
+            <h1 style={{textAlign:"center", marginBottom:"4rem"}}>Edit Deck</h1>
+            <Box>
+                <form className="deck-form" onSubmit={submitFormHandler}>
+                    <Input value={state.title} id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
+                    {inputArray}
+                    <Button type="button" classes="button button-main" click={addInputHandler}>New Pair</Button>
+                    <div className="button-container">
+                    <Button type="submit" classes="button button-main">Edit deck</Button>
+                    </div>
+                </form>
+            </Box>
+        </React.Fragment>
+        
+        
     )
 }

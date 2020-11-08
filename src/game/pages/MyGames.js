@@ -5,6 +5,8 @@ import { DeckContext } from '../../shared/Context/DeckContextProvider'
 import useDidMountEffect from '../../shared/hooks/useDidMountEffect';
 
 import Button from '../../shared/UI/Button'
+import Box from '../../shared/UI/Box'
+
 
 export default function MyGames() {
 
@@ -87,8 +89,8 @@ export default function MyGames() {
 
 
     return (
-        <div>
+        <Box>
             {myGames}
-        </div>
+        </Box>
     )
 }

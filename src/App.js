@@ -25,24 +25,26 @@ function App() {
       <DeckContextProvider>
         <Router>
           <Header/>
-          <Switch>
-            <Route path="/" exact>
-              <Game />
+          <main>
+            <Switch>
+              <Route path="/" exact>
+                <Game />
+              </Route>
+              <Route path="/about" exact>
+                <h1>Somos nosotros</h1>
+              </Route>
+              <Route path="/game" exact>
+                <NewGame/>
+              </Route>
+              <Route path="/my-games" exact>
+                <MyGames/>
+              </Route>
+            <Route path="/my-games/:deckId">
+                <EditGame/>
             </Route>
-            <Route path="/about" exact>
-              <h1>Somos nosotros</h1>
-            </Route>
-            <Route path="/game" exact>
-              <NewGame/>
-            </Route>
-            <Route path="/my-games" exact>
-              <MyGames/>
-            </Route>
-           <Route path="/my-games/:deckId">
-              <EditGame/>
-           </Route>
-            <Redirect to='/'/>
-          </Switch>
+              <Redirect to='/'/>
+            </Switch>
+          </main>
         </Router>  
       </DeckContextProvider>
      </div>

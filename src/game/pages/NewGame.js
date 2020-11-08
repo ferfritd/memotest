@@ -7,6 +7,7 @@ import useForm from '../../shared/hooks/useForm'
 
 import Input from '../Components/input'
 import Button from "../../shared/UI/Button";
+import Box from "../../shared/UI/Box";
 
 import "./GameForm.css";
 
@@ -59,16 +60,18 @@ export default function NewGame() {
         }, [state.deck])
 
     return (
-        <main className="centered">
+        <div className="centered">
             <h1  style={{textAlign:"center", marginBottom:"4rem"}}>Create New Deck</h1>
-            <form className="box deck-form" onSubmit={submitFormHandler}>
-                <Input id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
-                {inputArray}
-                <Button type="button" classes="button button-main" click={addInputHandler}>New Pair</Button>
-                <div className="button-container">
-                <Button type="submit" classes="button button-main">Create deck</Button>
-                </div>
-            </form>
-        </main>
+            <Box>
+                <form className="deck-form" onSubmit={submitFormHandler}>
+                    <Input id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
+                    {inputArray}
+                    <Button type="button" classes="button button-main" click={addInputHandler}>New Pair</Button>
+                    <div className="button-container">
+                    <Button type="submit" classes="button button-main">Create deck</Button>
+                    </div>
+                </form>
+            </Box>
+        </div>
     )
 }
