@@ -87,6 +87,9 @@ const reducer = (state, action) => {
 
 export default function Game(props) {
 
+    document.title = props.title
+
+
     const {deckState, gameTitle} = useContext(DeckContext)
     
     const gameLogic = deckState.map(pair => {
@@ -136,6 +139,7 @@ export default function Game(props) {
     })
 
     useEffect(() => {
+
 
         return () => {
             dispatch({type:'RESETSTATE'})

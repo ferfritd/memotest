@@ -28,19 +28,19 @@ function App() {
           <main>
             <Switch>
               <Route path="/" exact>
-                <Game />
+                <Game title="Kioku - My Game"/>
               </Route>
               <Route path="/about" exact>
                 <h1>Somos nosotros</h1>
               </Route>
               <Route path="/game" exact>
-                <NewGame/>
+                <NewGame title="Kioku - New Game"/>
               </Route>
               <Route path="/my-games" exact>
-                <MyGames/>
+                <MyGames title="Kioku - My Games"/>
               </Route>
             <Route path="/my-games/:deckId">
-                <EditGame/>
+                <EditGame title="Kioku - Edit Game"/>
             </Route>
               <Redirect to='/'/>
             </Switch>

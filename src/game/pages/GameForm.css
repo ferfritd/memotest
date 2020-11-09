@@ -30,6 +30,14 @@
     transition: color .4s ease;
 }
 
+.input-number{
+    position: absolute;
+    left: 2%;
+    top: 36%;
+    color:#5E8A75;
+    font-size: 2rem;
+}    
+
 .remove-input:hover{
     color: #5E8A75;
     cursor: pointer;
@@ -45,16 +53,28 @@
     outline: none;
 }
 
+.deck-form  .inputs-field:last-child{
+    margin: 3rem 0 1rem 0;
+}
+
 .inputs-field input:last-of-type{
     margin-right: 0;
 }
 
-.button-container{
+.add-buttons{
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    width: 80%;
 }
 
+.add-buttons > button:hover{
+    transform: scale(1.01);
+}
+
+.add-buttons > button:last-of-type{
+    margin-right: 0;
+}
 .dash{
     font-size: 5rem;
 }

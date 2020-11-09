@@ -7,8 +7,11 @@ import useDidMountEffect from '../../shared/hooks/useDidMountEffect';
 import Button from '../../shared/UI/Button'
 import Box from '../../shared/UI/Box'
 
+import './MyGames.css'
 
-export default function MyGames() {
+export default function MyGames(props) {
+
+    document.title = props.title
 
     const history = useHistory()
 
@@ -58,39 +61,51 @@ export default function MyGames() {
 
     const myGames = 
         collectionState.length > 0 ?
-        <ul>
+        <div className="game-container">
             {collectionState.map(deck => {
-                return (<div key={deck.id}>
-                            <li>
-                                <p>
-                                    {deck.title} - {deck.timeStamp}
-                                </p>
-                                <ul>
-                                    {deck.deck.map((pair, i) => {
-                                        return(
-                                            <li key={i}>
-                                                <p>{`${pair[0]} - ${pair[1]} `}</p>
-                                            </li>
-                                        ) 
-                                        
-                                    })}
-                                </ul>
-                            </li>
-                            <Button type="button" click={() => playGameHandler(deck.id)}>Play</Button>
+                return (
+                    <div className="info-card" key={deck.id}>
+                        <h2>
+                            {deck.title}
+                        </h2>
+                        <p>
+                            {deck.timeStamp}
+                        </p>
+                        <div className="game-info" >
+                            {deck.deck.map((pair, i) => {
+                                return(
+                                    
+                                    <p key={i}>
+                                        {`${pair[0]} - ${pair[1]} `}
+                                    </p>
+                                    
+                                ) 
+                                
+                            })}
+                        </div>
+                        <div className="buttons">
+                            <Button classes="button button-small button-main" type="button" click={() => playGameHandler(deck.id)}>Play</Button>
                             <Link to={`/my-games/${deck.id}`}>
-                            <Button>Edit</Button>
+                            <Button classes="button button-small button-inverted">Edit</Button>
                             </Link>
-                            <Button click={() => deleteDeckHandler(deck.id)}>Delete</Button>
-                       </div>)
+                            <Button classes="button button-small button-main" click={() => deleteDeckHandler(deck.id)}>Delete</Button>
+                        </div>
+                            
+                    </div>)
                         
             })}
-        </ul> 
+        </div> 
         : <p>No games yet!</p>
 
 
     return (
-        <Box>
-            {myGames}
-        </Box>
+        <React.Fragment>
+            <h1 style={{textAlign:"center"}}>
+                MY GAMES
+            </h1>
+            <Box>
+                {myGames}
+            </Box>
+        </React.Fragment>
     )
 }

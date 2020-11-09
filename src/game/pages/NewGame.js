@@ -12,7 +12,9 @@ import Box from "../../shared/UI/Box";
 import "./GameForm.css";
 
 
-export default function NewGame() {
+export default function NewGame(props) {
+
+    document.title = props.title
 
     const history = useHistory()
 
@@ -20,9 +22,10 @@ export default function NewGame() {
 
     const [state,{inputChangeHandler, addInputHandler, removeInputHandler, changeTitleHandler, submitFormHandler}] = useForm('', [])
 
-    const inputArray = state.inputs.map((el) => {
+    const inputArray = state.inputs.map((el, id) => {
         return (<div key={el.id} id={el.id} className="inputs-field">
         <p className="remove-input" onClick={()=>removeInputHandler(el.id)}>Remove</p>
+        <p className="input-number">{`${id + 1}`}</p>
         <Input type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler}/>
         <p className="dash">-</p>
         <Input type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler}/>
@@ -66,9 +69,12 @@ export default function NewGame() {
                 <form className="deck-form" onSubmit={submitFormHandler}>
                     <Input id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
                     {inputArray}
-                    <Button type="button" classes="button button-main" click={addInputHandler}>New Pair</Button>
+                    <div className="add-buttons">
+                        <Button type="button" classes="button button-main button-small button-circle" click={() => addInputHandler(1)}>+1</Button>
+                        <Button type="button" classes="button button-inverted button-small button-circle" click={() => addInputHandler(4)}>+4</Button>
+                    </div>
                     <div className="button-container">
-                    <Button type="submit" classes="button button-main">Create deck</Button>
+                        <Button type="submit" classes="button button-main">Create deck</Button>
                     </div>
                 </form>
             </Box>

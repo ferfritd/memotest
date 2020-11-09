@@ -22,7 +22,9 @@ const formReducer = (state, action) => {
             });
             return newState
         case "ADDINPUT":
-            newState.inputs.push({id:uuidV4(), pairs:['','']})
+            const array = new Array(action.quantity).fill('_')
+            const newInputs = array.map(el => {return {id:uuidV4(), pairs:['','']}})
+            newState.inputs.push(...newInputs)
             return newState
         case 'REMOVEINPUT':
 
@@ -86,8 +88,8 @@ export default function useForm(title, deck) {
             dispatch({type:'CHANGETITLE', value:value})
         }
 
-        const addInputHandler = () => {
-            dispatch({type:"ADDINPUT"})
+        const addInputHandler = (quantity) => {
+            dispatch({type:"ADDINPUT", quantity:quantity})
         }
 
         const removeInputHandler = (inputId) => {
