@@ -18,6 +18,8 @@
     left: 0;
     height: 20rem;
     width: 100%;
+    border-radius: 1rem;
+
     backface-visibility: hidden;               ;
     transition: all 1s ease;
     display: flex;
