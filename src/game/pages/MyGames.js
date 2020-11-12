@@ -95,7 +95,14 @@ export default function MyGames(props) {
                         
             })}
         </div> 
-        : <p>No games yet!</p>
+        : <div className="new-game-section">    
+        <h2 style={{fontSize:'4rem', color: '#3f6854'}}>No games yet! Why don't you try creating a new one?</h2>
+            <Link to='/game'> 
+                <Button classes="button button-main">
+                    New Deck
+                </Button>
+            </Link>
+        </div>
 
 
     return (

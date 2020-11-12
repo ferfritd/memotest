@@ -30,9 +30,6 @@ function App() {
               <Route path="/" exact>
                 <Game title="Kioku - My Game"/>
               </Route>
-              <Route path="/about" exact>
-                <h1>Somos nosotros</h1>
-              </Route>
               <Route path="/game" exact>
                 <NewGame title="Kioku - New Game"/>
               </Route>
