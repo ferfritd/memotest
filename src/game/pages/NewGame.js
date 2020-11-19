@@ -67,7 +67,7 @@ export default function NewGame(props) {
             <h1  style={{textAlign:"center", marginBottom:"4rem"}}>Create New Deck</h1>
             <Box>
                 <form className="deck-form" onSubmit={submitFormHandler}>
-                    <Input id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
+                    <Input classes="title-input" id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
                     {inputArray}
                     <div className="add-buttons">
                         <Button type="button" classes="button button-main button-small button-circle" click={() => addInputHandler(1)}>+1</Button>

@@ -74,7 +74,7 @@ export default function EditGame(props) {
             <h1 style={{textAlign:"center", marginBottom:"4rem"}}>Edit Deck</h1>
             <Box>
                 <form className="deck-form" onSubmit={submitFormHandler}>
-                    <Input value={state.title} id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
+                    <Input classes="title-input" value={state.title} id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
                     {inputArray}
                     <div className="add-buttons">
                         <Button type="button" classes="button button-main button-small button-circle" click={() => addInputHandler(1)}>+1</Button>

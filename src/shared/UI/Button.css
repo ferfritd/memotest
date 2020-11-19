@@ -1,4 +1,6 @@
 .button{
+    display: inline-block;
+    text-decoration: none;
     padding: 2rem 6rem;
     border: none;
     outline: none;

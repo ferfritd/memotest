@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react'
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { DeckContext } from '../../shared/Context/DeckContextProvider' 
 import useDidMountEffect from '../../shared/hooks/useDidMountEffect';
@@ -85,9 +85,9 @@ export default function MyGames(props) {
                         </div>
                         <div className="buttons">
                             <Button classes="button button-small button-main" type="button" click={() => playGameHandler(deck.id)}>Play</Button>
-                            <Link to={`/my-games/${deck.id}`}>
-                            <Button classes="button button-small button-inverted">Edit</Button>
-                            </Link>
+                            <Button to={`/my-games/${deck.id}`} exact={"true"} classes="button button-small button-inverted">
+                                Edit
+                            </Button>
                             <Button classes="button button-small button-main" click={() => deleteDeckHandler(deck.id)}>Delete</Button>
                         </div>
                             
@@ -96,13 +96,13 @@ export default function MyGames(props) {
             })}
         </div> 
         : <div className="new-game-section">    
-        <h2 style={{fontSize:'4rem', color: '#3f6854'}}>No games yet! Why don't you try creating a new one?</h2>
-            <Link to='/game'> 
-                <Button classes="button button-main">
-                    New Deck
-                </Button>
-            </Link>
-        </div>
+            <h2 style={{fontSize:'4rem', color: '#3f6854'}}>No games yet! Why don't you try creating a new one?</h2>
+            
+            <Button to='/game' exact={"true"} classes="button button-main">
+                New Deck
+            </Button>
+    
+          </div>
 
 
     return (

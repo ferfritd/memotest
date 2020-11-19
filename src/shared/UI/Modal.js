@@ -1,34 +1,21 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { createPortal } from 'react-dom'
 
 import Button from './Button'
 
 import './Modal.css'
 
-export default function Modal({active, restartGameHandler}) {
+export default function Modal({onAccept, acceptText, onCancel, cancelText, children, classes, transition}) {
 
-    const [returnToGame, setReturnToGame] = useState(false)
-    
-    const returnToGameHandler = () => {
-        setReturnToGame(true)
-    }
+    const modal = <div className={` modal ${classes || ''} ${transition || ''}`}>
+                    <div>
+                        {children}
+                        <div className="modal-buttons">
+                            <Button classes={'button button-main'} click={onAccept}>{acceptText}</Button>
+                            <Button classes={'button button-inverted'} click={onCancel}>{cancelText}</Button>
+                        </div>
+                    </div>
+                 </div>
 
-    useEffect(() => {
-        if(returnToGame && !active){
-            setReturnToGame(false)
-        }
-    }, [returnToGame, active])
-
-    const content = 
-    <div className={`modal ${!active || returnToGame ? 'modal-closed': 'modal-active'}`}>
-        <div>
-            <h2>Congrats, you win! You're awesome!</h2>
-            <div className="modal-buttons">
-                <Button classes={'button button-main'} click={restartGameHandler}>Play Again</Button>
-                <Button classes={'button button-inverted'} click={returnToGameHandler}>Return to Game</Button>
-            </div>
-        </div>
-    </div>
-
-    return createPortal(content, document.getElementById('modal-hook'))
+    return createPortal(modal, document.getElementById('modal-hook'))
 }

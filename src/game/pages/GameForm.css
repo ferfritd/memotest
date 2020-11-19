@@ -5,9 +5,14 @@
     justify-content: center;
 }
 
+.title-input{
+    display: block;
+    margin-bottom: 2rem;
+}
+
 .inputs-field{
     position: relative;
-    width: 80%;
+    width: 98%;
     padding: 0 .5rem;
     display: flex;
     justify-content: space-evenly;
@@ -31,11 +36,8 @@
 }
 
 .input-number{
-    position: absolute;
-    left: 2%;
-    top: 36%;
-    color:#5E8A75;
-    font-size: 2rem;
+    width: 2%;
+    margin-right: .5rem;
 }    
 
 .remove-input:hover{

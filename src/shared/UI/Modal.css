@@ -1,12 +1,10 @@
 .modal{
     position: absolute;
     left: 50%;
-    top: -50%;
     transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
     align-items: center;
-
     padding: 4rem;
     min-width: 60vw;
     min-height: 36vw;
@@ -22,6 +20,9 @@
     0 47px 100px rgba(0, 0, 0, 0.1)
     ;
     
+}
+
+.slow-transition{
     transition: all 3s ease-out;
 }
 
@@ -36,7 +37,10 @@
     justify-content: center;
 }
 
-.modal-active{
+.modal-enter-from-up{
     top: 50%;
 }
 
+.modal-goes-to-up{
+    top: -50%;
+}

@@ -63,36 +63,59 @@
 
 }
 
-/* @media (min-width: 920px) {
-    
-    .buttons{
-        flex-wrap: wrap;
-    }
-} */
-
 @media (max-width: 920px) {
     .info-card{
         width: calc(50% - 2rem);
     }   
 }
-/*  
-@media (max-width: 1200px) {
-    .buttons button{
+ 
+@media (max-width: 833px) {
+    .buttons button,
+    .buttons a{
         padding: 1rem 1.5rem;
     }
 }
 
 
-@media (max-width: 1020px) {
-    .buttons button{
+@media (max-width: 654px) {
+    .buttons button,
+    .buttons a{
         padding: .5rem .75rem;
         font-size: 2rem;
     }
-} */
+}
+
+@media (max-width: 590px) {
+    .buttons{
+        flex-direction: column;
+        justify-content: unset;
+        align-items: center;
+    }
+    .buttons button,
+    .buttons a{
+        display: block;
+        margin: .2rem 0;
+        width: 80%;
+        font-size: 1.4rem;
+    }
+    .game-info{
+        height: 35%;
+    }
+}
+
+@media (max-width: 590px){
+    .game-info{
+        height: 20%;
+    }
+    .info-card h2{
+        font-size: 2.3rem;
+    }
+}
 
 .new-game-section{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    padding: 4rem;
+}
+
+.new-game-section a{
+    margin-top: 3rem    ;
 }

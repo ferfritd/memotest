@@ -3,7 +3,8 @@ import React, { useEffect, useReducer, useContext } from 'react';
 import { DeckContext } from "../../shared/Context/DeckContextProvider";
 
 import Card from '../../shared/UI/Card'
-import Modal from '../../shared/UI/Modal'
+// import Modal from '../../shared/UI/Modal'
+import GameModal from '../Components/GameModal'
 import Button from "../../shared/UI/Button";
 import Box from '../../shared/UI/Box'
 
@@ -151,7 +152,7 @@ export default function Game(props) {
     return (
         <React.Fragment>    
             <Box extraClasses= "centered">
-                {state.remainingPairs === 0 ? <Modal active restartGameHandler={restartGameHandler}/> : <Modal active={false}/>}
+                {state.remainingPairs === 0 ? <GameModal active restartGameHandler={restartGameHandler}/> : <GameModal active={false}/>}
                 
                 <h1>{gameTitle}</h1>
                 <div className="grid">
