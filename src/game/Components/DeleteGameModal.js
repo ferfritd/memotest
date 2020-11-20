@@ -2,7 +2,7 @@ import React from 'react'
 
 import Modal from '../../shared/UI/Modal'
 
-export default function DeleteGameModal({classes, openCloseModalHandler, deleteDeckHandler, transition, extraStyles}) {
+export default function DeleteGameModal({classes, openCloseModalHandler, deleteDeckHandler, transition, extraStyles, deckName}) {
     
     return (
         <Modal 
@@ -13,7 +13,7 @@ export default function DeleteGameModal({classes, openCloseModalHandler, deleteD
             onCancel={openCloseModalHandler}
             cancelText='NO'
             transition={transition}>
-                 <p>Are you sure you want to delete this deck?</p>
+                 <p>Are you sure that you want to delete "{deckName}"?</p>
         </Modal>
     )
 }

@@ -48,19 +48,6 @@
    * Correct the font size and margin on `h1` elements within `section` and
    * `article` contexts in Chrome, Firefox, and Safari.
    */
-  
-
-   .temporalDiv{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-   }
-
-   .temporalDiv span{
-    font-family: 'Gaegu', cursive;
-    font-size: 4rem;
-   }
 
   h1 {
     font-size: 2em;
@@ -72,7 +59,7 @@
     width: 98%;
     margin: 0 auto;
   }
-  
+
   /* Grouping content
      ========================================================================== */
   

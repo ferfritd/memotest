@@ -63,7 +63,7 @@
 
 }
 
-@media (max-width: 920px) {
+@media (max-width: 1250px) {
     .info-card{
         width: calc(50% - 2rem);
     }   

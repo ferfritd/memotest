@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect } from 'react'
+import React, {useContext, useState, useEffect, Fragment } from 'react'
 import { useHistory } from "react-router-dom";
 
 import { DeckContext } from '../../shared/Context/DeckContextProvider' 
@@ -7,6 +7,8 @@ import useDidMountEffect from '../../shared/hooks/useDidMountEffect';
 import Button from '../../shared/UI/Button'
 import Box from '../../shared/UI/Box'
 import DeleteGameModal from '../Components/DeleteGameModal'
+import Backdrop from '../../shared/UI/Backdrop'
+
 
 import './MyGames.css'
 
@@ -136,12 +138,16 @@ export default function MyGames(props) {
         <React.Fragment>
             {showModal 
                 ?
-                <DeleteGameModal 
-                    openCloseModalHandler={openCloseModalHandler} deleteDeckHandler={() =>deleteDeckHandler(deckToRemove.id)} 
-                    classes={'fade-in'} 
-                    transition='faster-transition' 
-                    extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}
-                /> 
+                <Fragment>
+                    <Backdrop OnCloseBackdrop={openCloseModalHandler}/>
+                    <DeleteGameModal
+                        deckName={deckToRemove.title}
+                        openCloseModalHandler={openCloseModalHandler} deleteDeckHandler={() =>deleteDeckHandler(deckToRemove.id)} 
+                        classes={'fade-in'} 
+                        transition='faster-transition' 
+                        extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}
+                    /> 
+                </Fragment>
 
                 :
                 <DeleteGameModal 

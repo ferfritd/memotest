@@ -22,7 +22,7 @@
 .modal p{
     font-size: 3rem;
     font-weight: bold;
-    color: #2B475C;
+    color: #5E8A75;
 }
 
 .slow-transition{
@@ -31,12 +31,6 @@
 
 .faster-transition{
     transition:  all .4s ease;
-}
-
-.modal h2 {
-    font-size: 5rem;
-    text-align: center;
-    line-height: 1.5;
 }
 
 .modal-buttons{
