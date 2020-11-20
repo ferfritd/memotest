@@ -2,29 +2,17 @@ import React, {useState, useEffect} from 'react'
 
 import Modal from '../../shared/UI/Modal'
 
-export default function GameModal({active, restartGameHandler}) {
-
-    const [returnToGame, setReturnToGame] = useState(false)
-    
-    const returnToGameHandler = () => {
-        setReturnToGame(true)
-    }
-
-    useEffect(() => {
-        if(returnToGame && !active){
-            setReturnToGame(false)
-        }
-    }, [returnToGame, active])
+export default function GameModal({restartGameHandler, extraStyles, closeModalHandler}) {
 
     return (
-        <Modal 
-            classes={`${!active || returnToGame ? 'modal-goes-to-up': 'modal-enters-from-up'}`}
+        <Modal
+            extraStyles={extraStyles}
             onAccept={restartGameHandler}
             acceptText='Play Again'
-            onCancel={returnToGameHandler}
+            onCancel={closeModalHandler}
             cancelText='Return to game' 
             transition={'slow-transition'}>
-                <h2>Congrats, you win! You're awesome!</h2>
+                <p>Congrats, you win! You're awesome!</p>
         </Modal>
     )
 }

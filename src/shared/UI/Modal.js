@@ -5,9 +5,9 @@ import Button from './Button'
 
 import './Modal.css'
 
-export default function Modal({onAccept, acceptText, onCancel, cancelText, children, classes, transition}) {
+export default function Modal({onAccept, acceptText, onCancel, cancelText, children, classes, transition, extraStyles}) {
 
-    const modal = <div className={` modal ${classes || ''} ${transition || ''}`}>
+    const modal = <div style={extraStyles} className={` modal ${classes || ''} ${transition || ''}`}>
                     <div>
                         {children}
                         <div className="modal-buttons">

@@ -1,12 +1,12 @@
 .button{
     display: inline-block;
     text-decoration: none;
-    padding: 2rem 6rem;
+    padding: 1rem 3rem;
     border: none;
     outline: none;
     cursor: pointer;
     border-radius: 1rem;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: bold;
     margin: 2rem .5rem;
     transition: all .3s ease-in-out;
@@ -24,20 +24,19 @@
     padding: 2rem;
 }
 
-.button-main,
-.button-inverted:hover{
+.button-main{
     background-color: #2B475C;
     color: #e9e6e1;
     border: 2px solid transparent;
 }
 
-.button-inverted,
-.button-main:hover{
+.button-inverted{
     color: #2B475C;
     background-color: #e9e6e1;
     border: 2px solid #2B475C;
 }
 
-button:hover{
+button:hover,
+.button-link:hover{
     transform: scale(1.05);
 }

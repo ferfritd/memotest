@@ -6,10 +6,8 @@
     justify-content: center;
     align-items: center;
     padding: 4rem;
-    min-width: 60vw;
-    min-height: 36vw;
     background-color: #e9e6e1;
-    color: #2B475C;
+    
     border-radius: 1rem;
     z-index: 1000;
     box-shadow:
@@ -19,11 +17,20 @@
     0 17.2px 31.1px rgba(0, 0, 0, 0.069),
     0 47px 100px rgba(0, 0, 0, 0.1)
     ;
-    
+}
+
+.modal p{
+    font-size: 3rem;
+    font-weight: bold;
+    color: #2B475C;
 }
 
 .slow-transition{
-    transition: all 3s ease-out;
+    transition: all 2s ease-out;
+}
+
+.faster-transition{
+    transition:  all .4s ease;
 }
 
 .modal h2 {
@@ -37,10 +44,12 @@
     justify-content: center;
 }
 
-.modal-enter-from-up{
-    top: 50%;
+.fade-in{
+    opacity: 1;
+    display: flex;
 }
 
-.modal-goes-to-up{
-    top: -50%;
+.fade-out{
+    opacity: 0;
+    z-index: -1;
 }

@@ -1,9 +1,8 @@
-import React, { useEffect, useReducer, useContext } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 
 import { DeckContext } from "../../shared/Context/DeckContextProvider";
 
 import Card from '../../shared/UI/Card'
-// import Modal from '../../shared/UI/Modal'
 import GameModal from '../Components/GameModal'
 import Button from "../../shared/UI/Button";
 import Box from '../../shared/UI/Box'
@@ -68,6 +67,10 @@ const reducer = (state, action) => {
 
                 newState.remainingPairs = newState.remainingPairs - 1
 
+                if(newState.remainingPairs === 0){
+                    newState.modalIsOpen = true
+                }
+
             } else {
                 newState.gameLogic[action.id].isTurned = false
                 newState.selectedCard.isTurned = false
@@ -79,6 +82,9 @@ const reducer = (state, action) => {
         case 'RESETSTATE':
             resetState(newState)
             break
+        case 'CLOSEMODAL':
+            newState.modalIsOpen = false
+            return newState
         default:
             return state
 
@@ -113,15 +119,24 @@ export default function Game(props) {
             remainingPairs: deckState.length,
             gameLogic: gameLogic,
             selectedCard: {},
-            turn: 0
+            turn: 0,
+            modalIsOpen: false
         }, resetState
         )
+    
+    const [scrollPosition, setScrollPosition] = useState(0)
+
+    const scrollHandler = () => {
+         const position = window.pageYOffset;
+         setScrollPosition(position)
+    }
 
     const restartGameHandler = () => {
         setTimeout(() => {
             dispatch({type:'SORTCARDS'})
         },1000)
 
+        dispatch({type:'CLOSEMODAL'})
         dispatch({type:'RESTARTGAME'})
              
       }
@@ -134,6 +149,10 @@ export default function Game(props) {
             }, 1000);
         dispatch({type:'TURNTOFRONT', id:id})
     }
+
+    const closeModalHandler = () => {
+        dispatch({type:'CLOSEMODAL'})
+    }
             
     const deck = state.gameLogic.map((card, i) => {
         return <Card turn={state.turn} key={i} clicked={() => {clickHandler(i)}} info={card} />
@@ -141,18 +160,19 @@ export default function Game(props) {
 
     useEffect(() => {
 
+        window.addEventListener('scroll', scrollHandler)
 
         return () => {
+            window.removeEventListener('scroll', scrollHandler)
             dispatch({type:'RESETSTATE'})
         }  
         
     }, [])
-
-
+    
     return (
         <React.Fragment>    
             <Box extraClasses= "centered">
-                {state.remainingPairs === 0 ? <GameModal active restartGameHandler={restartGameHandler}/> : <GameModal active={false}/>}
+                {state.modalIsOpen ? <GameModal active restartGameHandler={restartGameHandler} closeModalHandler={closeModalHandler} extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}/> : <GameModal extraStyles={{top:'-50%'}}/>}
                 
                 <h1>{gameTitle}</h1>
                 <div className="grid">

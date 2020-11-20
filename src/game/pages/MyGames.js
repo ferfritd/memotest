@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react'
+import React, {useContext, useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 
 import { DeckContext } from '../../shared/Context/DeckContextProvider' 
@@ -6,6 +6,7 @@ import useDidMountEffect from '../../shared/hooks/useDidMountEffect';
 
 import Button from '../../shared/UI/Button'
 import Box from '../../shared/UI/Box'
+import DeleteGameModal from '../Components/DeleteGameModal'
 
 import './MyGames.css'
 
@@ -19,6 +20,14 @@ export default function MyGames(props) {
 
     const [deck, setstate] = useState(deckState)
     const [collectionState, setCollectionState] = useState(collection)
+    const [showModal, setShowModal] = useState(false)
+    const [deckToRemove, setDeckToRemove] = useState(null)
+    const [scrollPosition, setScrollPosition] = useState(0)
+
+    const scrollHandler = () => {
+         const position = window.pageYOffset;
+         setScrollPosition(position)
+    }
 
     const playGameHandler = (id) => {
         const selectedDeck = collectionState.filter( deck => {
@@ -27,6 +36,14 @@ export default function MyGames(props) {
 
         setstate(selectedDeck[0])
         localStorage.setItem('currentDeck', JSON.stringify(selectedDeck[0]))
+    }
+
+    const openCloseModalHandler = (id) => {
+        const removedDeck = collectionState.filter( deck => {
+            return deck.id === id
+        })
+        setShowModal(!showModal)
+        setDeckToRemove(...removedDeck)
     }
 
     const deleteDeckHandler = (id) => {
@@ -46,6 +63,15 @@ export default function MyGames(props) {
         setCollectionState(selectedDecks)
     }
 
+
+    useEffect(() => {
+        window.addEventListener('scroll', scrollHandler)
+
+        return () => {
+            window.removeEventListener('scroll', scrollHandler)
+        }
+    },[])
+
     useDidMountEffect(()=>{         
         onCreateDeck(deck.deck)
         onsetTitle(deck.title)
@@ -57,6 +83,7 @@ export default function MyGames(props) {
         onSetCollection(collectionState)
         onCreateDeck([['Perro', 'Dog'], ['Gato', 'Cat']])
         onsetTitle("My Game")
+        setShowModal(false)
     },[collectionState])
 
     const myGames = 
@@ -85,10 +112,10 @@ export default function MyGames(props) {
                         </div>
                         <div className="buttons">
                             <Button classes="button button-small button-main" type="button" click={() => playGameHandler(deck.id)}>Play</Button>
-                            <Button to={`/my-games/${deck.id}`} exact={"true"} classes="button button-small button-inverted">
+                            <Button to={`/my-games/${deck.id}`} exact={"true"} classes="button button-small button-inverted button-link">
                                 Edit
                             </Button>
-                            <Button classes="button button-small button-main" click={() => deleteDeckHandler(deck.id)}>Delete</Button>
+                            <Button classes="button button-small button-main" click={() => openCloseModalHandler(deck.id)}>Delete</Button>
                         </div>
                             
                     </div>)
@@ -107,9 +134,27 @@ export default function MyGames(props) {
 
     return (
         <React.Fragment>
+            {showModal 
+                ?
+                <DeleteGameModal 
+                    openCloseModalHandler={openCloseModalHandler} deleteDeckHandler={() =>deleteDeckHandler(deckToRemove.id)} 
+                    classes={'fade-in'} 
+                    transition='faster-transition' 
+                    extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}
+                /> 
+
+                :
+                <DeleteGameModal 
+                    classes={'fade-out'} 
+                    transition='faster-transition'
+                    extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}
+                />
+            }
+                
             <h1 style={{textAlign:"center"}}>
                 MY GAMES
             </h1>
+
             <Box>
                 {myGames}
             </Box>
