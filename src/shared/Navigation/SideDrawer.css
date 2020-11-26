@@ -1,0 +1,24 @@
+.sideDrawer{
+    height: 100%;
+    width: 50%;
+    z-index: 1000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #e9e6e1;
+    padding: 1rem 2.5rem;
+    transition: opacity 1s ease;
+    opacity: 1;
+    border-radius: 0 .5rem .5rem 0;
+}
+
+.close-sideDrawer{
+    cursor: pointer;
+    text-align: right;
+    color: #2B475C;
+}
+
+.close-sideDrawer:hover{
+    color: #5E8A75;
+    transition: color .5s ease;
+}

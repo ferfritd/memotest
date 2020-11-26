@@ -135,7 +135,7 @@ export default function MyGames(props) {
 
 
     return (
-        <React.Fragment>
+        <Fragment>
             {showModal 
                 ?
                 <Fragment>
@@ -143,7 +143,7 @@ export default function MyGames(props) {
                     <DeleteGameModal
                         deckName={deckToRemove.title}
                         openCloseModalHandler={openCloseModalHandler} deleteDeckHandler={() =>deleteDeckHandler(deckToRemove.id)} 
-                        classes={'fade-in'} 
+                        classes='fade-in' 
                         transition='faster-transition' 
                         extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}
                     /> 
@@ -151,7 +151,7 @@ export default function MyGames(props) {
 
                 :
                 <DeleteGameModal 
-                    classes={'fade-out'} 
+                    classes='fade-out' 
                     transition='faster-transition'
                     extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}
                 />
@@ -164,6 +164,6 @@ export default function MyGames(props) {
             <Box>
                 {myGames}
             </Box>
-        </React.Fragment>
+        </Fragment>
     )
 }

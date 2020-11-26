@@ -1,12 +1,12 @@
 .backdrop-open{
-    display: block;
-    background: rgb(0, 0, 0, .8);
+    background: rgb(0, 0, 0);
     position: fixed;
     top: 0;
     left: 0;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     z-index: 900;
-    transition: all .4s ease;
+    opacity: .8;
+    transition: all 1s ease;
 }
 

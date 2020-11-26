@@ -1,0 +1,22 @@
+.burger-menu{
+    display: flex;
+    flex-direction: column;
+}
+
+.burger-menu div{
+    padding: .2rem 1rem;
+    background-color: #2B475C;
+    margin-bottom: .3rem;
+}
+
+.burger-menu:hover div{
+    background-color: #5E8A75;
+    transition: background-color .4 s ease;
+    cursor: pointer;
+}
+
+@media (min-width: 675px) {
+    .burger-menu{
+        display: none;
+    }
+}
