@@ -60,6 +60,9 @@ export default function NewGame(props) {
                 localStorage.setItem('currentDeck',JSON.stringify(deck))
                 history.push('/')
             }
+            if(state.title.length === 0){
+                window.scrollTo(0,0)
+            }
         }, [state.deck])
 
     return (
@@ -67,7 +70,7 @@ export default function NewGame(props) {
             <h1  style={{textAlign:"center", marginBottom:"4rem"}}>Create New Deck</h1>
             <Box>
                 <form className="deck-form" onSubmit={submitFormHandler}>
-                    <Input classes="title-input" id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
+                    <Input classes="title-input" id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler} showError={true} errorMessage="Don't forget to fill this field"/>
                     {inputArray}
                     <div className="add-buttons">
                         <Button type="button" classes="button button-main button-small button-circle" click={() => addInputHandler(1)}>+1</Button>

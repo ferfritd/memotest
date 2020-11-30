@@ -31,12 +31,17 @@ export default function EditGame(props) {
     const [state, {inputChangeHandler, changeTitleHandler, addInputHandler,removeInputHandler, submitFormHandler}] = useForm(selectedDeck.title, selectedDeck.deck)
 
     const inputArray = state.inputs.map((el, id) => {
-        return (<div key={el.id} id={el.id} className="inputs-field">
-        <p className="remove-input" onClick={()=>removeInputHandler(el.id)}>Remove</p>
-        <p className="input-number">{`${id + 1}`}</p>
-        <Input type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler}/>
-        <p className="dash">-</p>
-        <Input type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler}/>
+        return (
+        <div key={el.id} id={el.id} className="inputs-field">
+            <p className="remove-input" onClick={()=>removeInputHandler(el.id)}>Remove</p>
+            
+            <p className="input-number">{`${id + 1}`}</p>
+            
+            <Input type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler}/>
+            
+            <p className="dash">-</p>
+            
+            <Input type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler}/>
         </div>)
         })
 
@@ -74,7 +79,8 @@ export default function EditGame(props) {
             <h1 style={{textAlign:"center", marginBottom:"4rem"}}>Edit Deck</h1>
             <Box>
                 <form className="deck-form" onSubmit={submitFormHandler}>
-                    <Input classes="title-input" value={state.title} id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler}/>
+                <Input classes="title-input" value={state.title} id="deckName" placeholder="Insert deck's name" onInput={changeTitleHandler} showError={true} errorMessage="Don't forget to fill this field"/>
+                    
                     {inputArray}
                     <div className="add-buttons">
                         <Button type="button" classes="button button-main button-small button-circle" click={() => addInputHandler(1)}>+1</Button>
