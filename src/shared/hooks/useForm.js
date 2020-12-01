@@ -39,14 +39,23 @@ const formReducer = (state, action) => {
             return newState
 
         case 'SUBMITFORM':
+            let isValid = true
             const finalDeck = []
             newState.inputs.forEach(pair => {
                 if(pair.pairs[0] && pair.pairs[1]){
                     finalDeck.push(pair.pairs)
                 }
+                if((pair.pairs[0] && !pair.pairs[1])||(!pair.pairs[0] && pair.pairs[1])){
+                    pair.showError = true
+                    isValid = false
+                }
 
             })
-            newState.deck = finalDeck
+            if(isValid){
+                newState.deck = finalDeck
+            } else {
+                window.scrollTo(0,0)
+            }
             
             return newState
         default:
@@ -61,14 +70,14 @@ export default function useForm(title, deck) {
 
     if(deck.length > 0){
         myInputs = deck.map(pair => {
-            return {id:uuidV4(),pairs:[pair[0], pair[1]]}
+            return {id:uuidV4(),pairs:[pair[0], pair[1]], showError: false}
         })
     } else {
         myInputs = [
-            {id:uuidV4(),pairs:['', '']},
-            {id:uuidV4(),pairs:['', '']},
-            {id:uuidV4(),pairs:['', '']},
-            {id:uuidV4(),pairs:['', '']},
+            {id:uuidV4(),pairs:['', ''], showError: false},
+            {id:uuidV4(),pairs:['', ''], showError: false},
+            {id:uuidV4(),pairs:['', ''], showError: false},
+            {id:uuidV4(),pairs:['', ''], showError: false},
         ]    
     }
      

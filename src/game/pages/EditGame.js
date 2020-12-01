@@ -36,38 +36,47 @@ export default function EditGame(props) {
             <p className="remove-input" onClick={()=>removeInputHandler(el.id)}>Remove</p>
             
             <p className="input-number">{`${id + 1}`}</p>
-            
-            <Input type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler}/>
+            <div className='pair-input'>
+                <Input type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler} showError={el.showError} errorMessage='Seems like you forgot to fill this one'/>
+            </div>
             
             <p className="dash">-</p>
+
+            <div className='pair-input'>
+                <Input type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler} showError={el.showError} errorMessage='Seems like you forgot to fill this one'/>
+            </div>
             
-            <Input type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler}/>
         </div>)
         })
 
         useDidMountEffect(() => {
 
-            const deckIndex = deckCollection.findIndex((deck => {
-                return deck.id === deckId
-            }))
+            if(state.deck.length > 0 && state.title.length > 0){
 
-            const newDeck = {...selectedDeck, deck: state.deck, title:state.title}
-
-            deckCollection[deckIndex] = newDeck
-
-            onSetCollection(deckCollection)
-            localStorage.setItem('deckCollection',JSON.stringify(deckCollection))
-
-            
-            const currentDeck = JSON.parse(localStorage.getItem('currentDeck'))
-
-            if(currentDeck.id === selectedDeck.id){
-                localStorage.setItem('currentDeck', JSON.stringify(newDeck))
-                onCreateDeck(state.deck)
-                onsetTitle(state.title)
+                const deckIndex = deckCollection.findIndex((deck => {
+                    return deck.id === deckId
+                }))
+    
+                const newDeck = {...selectedDeck, deck: state.deck, title:state.title}
+    
+                deckCollection[deckIndex] = newDeck
+    
+                onSetCollection(deckCollection)
+                localStorage.setItem('deckCollection',JSON.stringify(deckCollection))
+    
+                
+                const currentDeck = JSON.parse(localStorage.getItem('currentDeck'))
+    
+                if(currentDeck.id === selectedDeck.id){
+                    localStorage.setItem('currentDeck', JSON.stringify(newDeck))
+                    onCreateDeck(state.deck)
+                    onsetTitle(state.title)
+                }
+    
+                history.push('/my-games')
+            } else {
+                window.scrollTo(0,0)
             }
-
-            history.push('/my-games')
         
         }, [state.deck])
 

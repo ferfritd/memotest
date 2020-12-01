@@ -19,10 +19,20 @@
     ;
 }
 
-.modal p{
+.modal p, .modal-header{
     font-size: 3rem;
     font-weight: bold;
     color: #5E8A75;
+}
+
+.modal-header{
+    text-align: center;
+}
+
+p.form-instructions{
+    color: black;
+    font-weight: normal;
+    font-size: 1.6rem;
 }
 
 .slow-transition{

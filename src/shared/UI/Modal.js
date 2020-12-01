@@ -11,8 +11,11 @@ export default function Modal({onAccept, acceptText, onCancel, cancelText, child
                     <div>
                         {children}
                         <div className="modal-buttons">
-                            <Button classes={'button button-main'} click={onAccept}>{acceptText}</Button>
+                            {acceptText &&                                  <Button classes={'button button-main'} click={onAccept}>{acceptText}</Button>
+                            }
+                            {cancelText &&
                             <Button classes={'button button-inverted'} click={onCancel}>{cancelText}</Button>
+                            }
                         </div>
                     </div>
                  </div>

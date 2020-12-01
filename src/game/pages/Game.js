@@ -2,6 +2,8 @@ import React, { useState, useEffect, useReducer, useContext } from 'react';
 
 import { DeckContext } from "../../shared/Context/DeckContextProvider";
 
+import useScroll from "../../shared/hooks/useScroll";
+
 import Card from '../../shared/UI/Card'
 import GameModal from '../Components/GameModal'
 import Button from "../../shared/UI/Button";
@@ -124,12 +126,7 @@ export default function Game(props) {
         }, resetState
         )
     
-    const [scrollPosition, setScrollPosition] = useState(0)
-
-    const scrollHandler = () => {
-         const position = window.pageYOffset;
-         setScrollPosition(position)
-    }
+    const [scrollPosition, scrollHandler] = useScroll(0)
 
     const restartGameHandler = () => {
         setTimeout(() => {
@@ -157,17 +154,6 @@ export default function Game(props) {
     const deck = state.gameLogic.map((card, i) => {
         return <Card turn={state.turn} key={i} clicked={() => {clickHandler(i)}} info={card} />
     })
-
-    useEffect(() => {
-
-        window.addEventListener('scroll', scrollHandler)
-
-        return () => {
-            window.removeEventListener('scroll', scrollHandler)
-            dispatch({type:'RESETSTATE'})
-        }  
-        
-    }, [])
     
     return (
         <React.Fragment>    

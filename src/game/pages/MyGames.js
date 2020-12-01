@@ -2,7 +2,9 @@ import React, {useContext, useState, useEffect, Fragment } from 'react'
 import { useHistory } from "react-router-dom";
 
 import { DeckContext } from '../../shared/Context/DeckContextProvider' 
-import useDidMountEffect from '../../shared/hooks/useDidMountEffect';
+
+import useDidMountEffect from '../../shared/hooks/useDidMountEffect'
+import useScroll from '../../shared/hooks/useScroll'
 
 import Button from '../../shared/UI/Button'
 import Box from '../../shared/UI/Box'
@@ -24,12 +26,8 @@ export default function MyGames(props) {
     const [collectionState, setCollectionState] = useState(collection)
     const [showModal, setShowModal] = useState(false)
     const [deckToRemove, setDeckToRemove] = useState(null)
-    const [scrollPosition, setScrollPosition] = useState(0)
-
-    const scrollHandler = () => {
-         const position = window.pageYOffset;
-         setScrollPosition(position)
-    }
+    
+    const [scrollPosition, scrollHandler] = useScroll(0)
 
     const playGameHandler = (id) => {
         const selectedDeck = collectionState.filter( deck => {
@@ -64,15 +62,6 @@ export default function MyGames(props) {
         }
         setCollectionState(selectedDecks)
     }
-
-
-    useEffect(() => {
-        window.addEventListener('scroll', scrollHandler)
-
-        return () => {
-            window.removeEventListener('scroll', scrollHandler)
-        }
-    },[])
 
     useDidMountEffect(()=>{         
         onCreateDeck(deck.deck)
