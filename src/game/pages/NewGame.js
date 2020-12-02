@@ -34,11 +34,11 @@ export default function NewGame(props) {
         <p className="remove-input" onClick={()=>removeInputHandler(el.id)}>Remove</p>
         <p className="input-number">{`${id + 1}`}</p>
         <div className="pair-input">
-            <Input type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler} showError={el.showError} errorMessage='Seems like you forgot to fill this one'/>
+            <Input classes={el.showError ? 'input-error' : ''} type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler} showError={el.showError} errorMessage='Looks like you forgot to fill this one'/>
         </div>
         <p className="dash">-</p>
         <div className="pair-input">
-            <Input type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler} showError={el.showError} errorMessage='Seems like you forgot to fill this one'/>
+            <Input classes={el.showError ? 'input-error' : ''} type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler} showError={el.showError} errorMessage='Looks like you forgot to fill this one'/>
         </div>
         </div>)
         })
@@ -86,7 +86,7 @@ export default function NewGame(props) {
                 <Modal acceptText='Got it' onAccept={() => setShowModal(false)} extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} transition='slow-transition'>
                     <h2 className='modal-header'>Ready to create a new Deck?</h2>
                     <p className='form-instructions'>Let us just tell how this form works</p>
-                    <ul>
+                    <ul className='form-intructions-list'>
                         <li>
                             <p className='form-instructions'>You can create as many cards as you want (we don't suggest to create so many of them. Remember you can create all the decks you want)</p>
                         </li>
@@ -100,11 +100,11 @@ export default function NewGame(props) {
                 </Modal>
 
                 :
-                <Modal acceptText='Got it' extraStyles={{top:`calc(-50%)`}} transition='slow-transition'>
+                <Modal acceptText='Got it' extraStyles={{top:`calc(-100%)`}} transition='slow-transition'>
                 <h2 className='modal-header'>Ready to create a new Deck?</h2>
                     <p className='form-instructions'>Let us just tell how this form works</p>
                     <ul>
-                        <li>
+                        1<li>
                             <p className='form-instructions'>You can create as many cards as you want (we don't suggest to create so many of them. Remember you can create all the decks you want)</p>
                         </li>
                         <li>

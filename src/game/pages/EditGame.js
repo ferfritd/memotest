@@ -37,13 +37,13 @@ export default function EditGame(props) {
             
             <p className="input-number">{`${id + 1}`}</p>
             <div className='pair-input'>
-                <Input type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler} showError={el.showError} errorMessage='Seems like you forgot to fill this one'/>
+                <Input classes={el.showError ? 'input-error' : ''} type="text" id={`${el.id}-firstInput`} value={el.pairs[0]} onInput={inputChangeHandler} showError={el.showError} errorMessage='Looks like you forgot to fill this one'/>
             </div>
             
             <p className="dash">-</p>
 
             <div className='pair-input'>
-                <Input type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler} showError={el.showError} errorMessage='Seems like you forgot to fill this one'/>
+                <Input classes={el.showError ? 'input-error' : ''} type="text" value={el.pairs[1]} id={`${el.id}-secondInput`} onInput={inputChangeHandler} showError={el.showError} errorMessage='Looks like you forgot to fill this one'/>
             </div>
             
         </div>)

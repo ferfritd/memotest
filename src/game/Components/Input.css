@@ -1,0 +1,35 @@
+.input-error::placeholder{
+    color: #ebb103;
+    font-size: 2rem;
+    line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+    .input-error::placeholder{
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 770px) {
+    .input-error::placeholder{
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 652px) {
+    .input-error::placeholder{
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .input-error::placeholder{
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 468px) {
+    .input-error::placeholder{
+        font-size: .9rem;
+    }
+}
