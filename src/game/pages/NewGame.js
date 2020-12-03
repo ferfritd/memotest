@@ -100,7 +100,7 @@ export default function NewGame(props) {
         <Fragment>
             {(showModal && !dontShow.dontShowAnymore) ?
                 
-                    <Modal extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} transition='slow-transition'>
+                    <Modal extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} classes="instructions-modal" transition='slow-transition'>
                         <h2 className='modal-header'>Ready to create a new Deck?</h2>
                         <p className='form-instructions'>Let us just tell how this form works</p>
                         <ul className='form-intructions-list'>
@@ -127,7 +127,7 @@ export default function NewGame(props) {
                     </Modal>
 
                 :
-                <Modal extraStyles={{top:`calc(-150%)`}} transition='slow-transition'>
+                <Modal classes="instructions-modal" extraStyles={{top:`calc(-150%)`}} transition='slow-transition'>
                 <h2 className='modal-header'>Ready to create a new Deck?</h2>
                     <p className='form-instructions'>Let us just tell how this form works</p>
                     <ul>

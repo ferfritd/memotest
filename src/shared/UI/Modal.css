@@ -60,3 +60,26 @@ p.form-instructions{
 #newGameDontShow{
     margin-right: 1rem;
 }
+
+@media (max-width: 1054px) {
+
+    .instructions-modal{
+        width: 70%;
+    }   
+}
+
+@media (max-width: 737px) {
+
+    .instructions-modal{
+        width: 80%;
+        padding: 2rem;
+    }
+    
+    .instructions-modal h2{
+        font-size: 2rem;
+    }
+    .instructions-modal button{
+        font-size: 1.5rem;
+        margin: 2rem auto;
+    }
+}
