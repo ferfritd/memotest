@@ -26,7 +26,6 @@ export default function Input({element, type, placeholder, onInput, id, value, c
     return (
         <Fragment>
             {HTMLInput}
-            {/* {showError && error && <p style={{color:'#ffc107', margin:'.5rem 0', fontSize:'1.8rem'}}>{errorMessage}</p>} */}
         </Fragment>    
         
     )

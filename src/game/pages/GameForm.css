@@ -86,3 +86,8 @@
 .dash{
     font-size: 5rem;
 }
+
+.closeModalButton{
+    display: flex;
+    justify-content: center;
+}

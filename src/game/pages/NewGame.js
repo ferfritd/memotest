@@ -27,6 +27,22 @@ export default function NewGame(props) {
 
     const [showModal, setShowModal] = useState(false)
 
+    let dontShow = JSON.parse(localStorage.getItem('dontShowNewGameModalAnymore'))
+
+    if(!dontShow){
+        localStorage.setItem('dontShowNewGameModalAnymore', JSON.stringify({dontShowAnymore: false}))
+        dontShow = {dontShowAnymore: false}
+    }
+
+    const [dontShowAnymore, setDontShowAnymore] = useState(dontShow.dontShowAnymore)
+
+    const dontShowModalHandler = (e) => {
+        e.preventDefault()
+        localStorage.setItem('dontShowNewGameModalAnymore', JSON.stringify({dontShowAnymore:dontShowAnymore}))  
+        setShowModal(false)
+
+    }
+
     const [scrollPosition] = useScroll(0)
 
     const inputArray = state.inputs.map((el, id) => {
@@ -82,25 +98,36 @@ export default function NewGame(props) {
 
     return (
         <Fragment>
-            {showModal ? 
-                <Modal acceptText='Got it' onAccept={() => setShowModal(false)} extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} transition='slow-transition'>
-                    <h2 className='modal-header'>Ready to create a new Deck?</h2>
-                    <p className='form-instructions'>Let us just tell how this form works</p>
-                    <ul className='form-intructions-list'>
-                        <li>
-                            <p className='form-instructions'>You can create as many cards as you want (we don't suggest to create so many of them. Remember you can create all the decks you want)</p>
-                        </li>
-                        <li>
-                            <p className='form-instructions'>Empty fields (where the 2 inputs are empty) will not be processed. You don't have to worry about deleting them</p>
-                        </li>
-                        <li>
-                            <p className='form-instructions'> Sometimes you may forget filling a field. We will warn you, so you won't miss any of the words you want to learn</p>
-                        </li>
-                    </ul>
-                </Modal>
+            {(showModal && !dontShow.dontShowAnymore) ?
+                
+                    <Modal extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} transition='slow-transition'>
+                        <h2 className='modal-header'>Ready to create a new Deck?</h2>
+                        <p className='form-instructions'>Let us just tell how this form works</p>
+                        <ul className='form-intructions-list'>
+                            <li>
+                                <p className='form-instructions'>You can create as many cards as you want (we don't suggest to create so many of them. Remember you can create all the decks you want)</p>
+                            </li>
+                            <li>
+                                <p className='form-instructions'>Empty fields (where the 2 inputs are empty) will not be processed. You don't have to worry about deleting them</p>
+                            </li>
+                            <li>
+                                <p className='form-instructions'> Sometimes you may forget filling a field. We will warn you, so you won't miss any of the words you want to learn</p>
+                            </li>
+                        </ul>
+                        <form onSubmit={dontShowModalHandler}>
+                            <div className='closeModalButton'>
+
+                            <Button type='submit' classes={'button button-main'}>GOT IT</Button>
+                            </div>
+                            <label id="newGameDontShowLabel">
+                            <input onChange={() => setDontShowAnymore(!dontShowAnymore)} id="newGameDontShow" type='checkbox'/>
+                                Don't show me this message anymore
+                            </label>
+                        </form>
+                    </Modal>
 
                 :
-                <Modal acceptText='Got it' extraStyles={{top:`calc(-100%)`}} transition='slow-transition'>
+                <Modal extraStyles={{top:`calc(-150%)`}} transition='slow-transition'>
                 <h2 className='modal-header'>Ready to create a new Deck?</h2>
                     <p className='form-instructions'>Let us just tell how this form works</p>
                     <ul>
@@ -114,9 +141,19 @@ export default function NewGame(props) {
                             <p className='form-instructions'> Sometimes you may forget filling a field. We will warn you, so you won't miss any of the words you want to learn</p>
                         </li>
                     </ul>
+                    <form onSubmit={dontShowModalHandler}>
+                        <div className='closeModalButton'> 
+
+                        <Button disabled={true} type='submit' classes={'button button-main'}>GOT IT</Button>
+                        </div>
+                        <label id="newGameDontShowLabel">
+                        <input onChange={() => setDontShowAnymore(!dontShowAnymore)} id="newGameDontShow" type='checkbox'/>
+                            Don't show me this message anymore
+                        </label>
+                    </form>
+                    
                 </Modal>
             }
-            {/* {state.modalIsOpen ? <GameModal active restartGameHandler={restartGameHandler} closeModalHandler={closeModalHandler} extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}/> : <GameModal extraStyles={{top:'-50%'}}/>} */}
             <div className="centered">
                 <h1  style={{textAlign:"center", marginBottom:"4rem"}}>Create New Deck</h1>
                 <Box>
