@@ -8,11 +8,12 @@ import {
 import DeckContextProvider from './shared/Context/DeckContextProvider'
 
 
-import Header from './shared/Navigation/Header';
+import Header from './shared/Navigation/Header'
 import NewGame from './game/pages/NewGame';
 import Game from './game/pages/Game';
 import MyGames from './game/pages/MyGames'
 import EditGame from './game/pages/EditGame'
+import DeckShared from './game/pages/DeckShared'
 
 
 
@@ -38,6 +39,9 @@ function App() {
               </Route>
             <Route path="/my-games/:deckId">
                 <EditGame title="Kioku - Edit Game"/>
+            </Route>
+            <Route path="/shared/:deck">
+              <DeckShared title="Share Deck"/>
             </Route>
               <Redirect to='/'/>
             </Switch>

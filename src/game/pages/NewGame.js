@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState, Fragment } from 'react'
 import { useHistory } from "react-router-dom";
-import { v4 as uuidV4 } from "uuid";
 
 import { DeckContext } from '../../shared/Context/DeckContextProvider'
 
 import useForm from '../../shared/hooks/useForm'
 import useScroll from '../../shared/hooks/useScroll'
+import addDeckToCollection from '../../shared/util/addDeckToCollection'
 
 import Input from '../Components/input'
 import Button from "../../shared/UI/Button"
@@ -69,26 +69,10 @@ export default function NewGame(props) {
                 onCreateDeck(state.deck)
                 onsetTitle(state.title)
 
-                const date = new Date().toLocaleDateString()
-                const time = new Date().toLocaleTimeString()
+                const deckCollection = addDeckToCollection(state)
                 
-                const deck = {id:uuidV4(), title:state.title, deck:state.deck, timeStamp:`Created on ${date} at ${time}`}
-                let deckCollection = JSON.parse(localStorage.getItem
-                ('deckCollection'))
-
-
-                if(!deckCollection){
-                    localStorage.setItem('deckCollection', JSON.stringify([deck]))
-                    deckCollection = JSON.parse(localStorage.getItem
-                        ('deckCollection')) 
-                } else {
-                    deckCollection.unshift({...deck})
-                    localStorage.setItem('deckCollection', JSON.stringify(deckCollection))
-                }
-
                 onSetCollection(deckCollection)
-
-                localStorage.setItem('currentDeck',JSON.stringify(deck))
+                
                 history.push('/')
             }
             if(state.title.length === 0){
@@ -131,7 +115,7 @@ export default function NewGame(props) {
                 <h2 className='modal-header'>Ready to create a new Deck?</h2>
                     <p className='form-instructions'>Let us just tell how this form works</p>
                     <ul>
-                        1<li>
+                        <li>
                             <p className='form-instructions'>You can create as many cards as you want (we don't suggest to create so many of them. Remember you can create all the decks you want)</p>
                         </li>
                         <li>

@@ -10,6 +10,7 @@ import Button from '../../shared/UI/Button'
 import Box from '../../shared/UI/Box'
 import DeleteGameModal from '../Components/DeleteGameModal'
 import Backdrop from '../../shared/UI/Backdrop'
+import Modal from '../../shared/UI/Modal';
 
 
 import './MyGames.css'
@@ -26,6 +27,7 @@ export default function MyGames(props) {
     const [collectionState, setCollectionState] = useState(collection)
     const [showModal, setShowModal] = useState(false)
     const [deckToRemove, setDeckToRemove] = useState(null)
+    const [deckToShare, setDeckToShare] = useState(null)
     
     const [scrollPosition, scrollHandler] = useScroll(0)
 
@@ -39,11 +41,16 @@ export default function MyGames(props) {
     }
 
     const openCloseModalHandler = (id) => {
-        const removedDeck = collectionState.filter( deck => {
-            return deck.id === id
-        })
+
+        if(deckToShare){
+            setDeckToShare(null)
+        } else {
+            const removedDeck = collectionState.filter( deck => {
+                return deck.id === id
+            })
+            setDeckToRemove(...removedDeck)
+        }
         setShowModal(!showModal)
-        setDeckToRemove(...removedDeck)
     }
 
     const deleteDeckHandler = (id) => {
@@ -61,6 +68,16 @@ export default function MyGames(props) {
         localStorage.setItem('currentDeck', JSON.stringify([]))
         }
         setCollectionState(selectedDecks)
+    }
+
+    const shareDeckHandler = (id) => {
+        const selectedDeck = collectionState.filter( deck => {
+            return deck.id === id
+        })
+
+        setDeckToShare(selectedDeck[0])
+        setShowModal(true)
+
     }
 
     useDidMountEffect(()=>{         
@@ -107,6 +124,7 @@ export default function MyGames(props) {
                                 Edit
                             </Button>
                             <Button classes="button button-small button-main" click={() => openCloseModalHandler(deck.id)}>Delete</Button>
+                            <Button classes="button button-small button-inverted" type="button" click={() => shareDeckHandler(deck.id)}>Share</Button>
                         </div>
                             
                     </div>)
@@ -127,23 +145,25 @@ export default function MyGames(props) {
         <Fragment>
             {showModal 
                 ?
+                !deckToShare
+                ?
                 <Fragment>
                     <Backdrop OnCloseBackdrop={openCloseModalHandler}/>
                     <DeleteGameModal
                         deckName={deckToRemove.title}
-                        openCloseModalHandler={openCloseModalHandler} deleteDeckHandler={() =>deleteDeckHandler(deckToRemove.id)} 
-                        classes='fade-in' 
-                        transition='faster-transition' 
+                        openCloseModalHandler={openCloseModalHandler} deleteDeckHandler={() =>deleteDeckHandler(deckToRemove.id)}  
                         extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}
                     /> 
                 </Fragment>
-
                 :
-                <DeleteGameModal 
-                    classes='fade-out' 
-                    transition='faster-transition'
-                    extraStyles={{top:`calc(50% + ${scrollPosition}px)`}}
-                />
+                <Fragment>
+                    <Backdrop OnCloseBackdrop={openCloseModalHandler}/>
+                    <Modal acceptText='OK' extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} onAccept={openCloseModalHandler}> 
+                        {`localhost:3000/shared/${encodeURIComponent(JSON.stringify(deckToShare))}`}
+                    </Modal>
+                </Fragment>
+                :
+                ''
             }
                 
             <h1 style={{textAlign:"center"}}>
