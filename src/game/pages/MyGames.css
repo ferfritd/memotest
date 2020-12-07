@@ -119,3 +119,26 @@
 .new-game-section a{
     margin-top: 3rem    ;
 }
+
+.URL-container{
+    background-color: white;
+    max-width: 90%;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 2px 2px 2px rgb(0, 0, 0, .2) inset,
+                -2px -2px 2px rgb(0, 0, 0, .2) inset;
+}
+
+p.share-text{
+    hyphens: auto;
+}
+
+p.URL{
+    color: black;
+    font-size: 1.6rem;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+}

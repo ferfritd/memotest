@@ -3,11 +3,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 4rem;
     background-color: #e9e6e1;
-    
+    max-width: 80%;
     border-radius: 1rem;
     z-index: 1000;
     box-shadow:

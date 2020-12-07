@@ -13,7 +13,9 @@ export default function DeleteGameModal({classes, openCloseModalHandler, deleteD
             onCancel={openCloseModalHandler}
             cancelText='NO'
             transition={transition}>
+            <div>
                  <p>Are you sure that you want to delete "{deckName}"?</p>
+            </div>
         </Modal>
     )
 }

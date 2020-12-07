@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect, Fragment } from 'react'
+import React, {useContext, useState, useRef, Fragment } from 'react'
 import { useHistory } from "react-router-dom";
 
 import { DeckContext } from '../../shared/Context/DeckContextProvider' 
@@ -31,6 +31,8 @@ export default function MyGames(props) {
     
     const [scrollPosition, scrollHandler] = useScroll(0)
 
+    const shareURL = useRef()
+
     const playGameHandler = (id) => {
         const selectedDeck = collectionState.filter( deck => {
             return deck.id === id
@@ -43,6 +45,13 @@ export default function MyGames(props) {
     const openCloseModalHandler = (id) => {
 
         if(deckToShare){
+            const range = document.createRange()
+            range.selectNode(shareURL.current)
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand("copy");
+            window.getSelection().removeAllRanges();
+
             setDeckToShare(null)
         } else {
             const removedDeck = collectionState.filter( deck => {
@@ -158,8 +167,15 @@ export default function MyGames(props) {
                 :
                 <Fragment>
                     <Backdrop OnCloseBackdrop={openCloseModalHandler}/>
-                    <Modal acceptText='OK' extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} onAccept={openCloseModalHandler}> 
-                        {`localhost:3000/shared/${encodeURIComponent(JSON.stringify(deckToShare))}`}
+                    <Modal acceptText='COPY' extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} onAccept={openCloseModalHandler}> 
+                        <p className="share-text">
+                            {`For sharing "${deckToShare.title}" just send this link to your friends and it will be automatically added to their games. Click on the button below to copy it to your billboard`} 
+                        </p>
+                        <div className='URL-container'>
+                            <p className="URL" ref={shareURL}>
+                                {`localhost:3000/shared/${encodeURIComponent(JSON.stringify(deckToShare))}`}
+                            </p>
+                        </div>
                     </Modal>
                 </Fragment>
                 :

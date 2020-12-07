@@ -12,7 +12,9 @@ export default function GameModal({restartGameHandler, extraStyles, closeModalHa
             onCancel={closeModalHandler}
             cancelText='Return to game' 
             transition={'slow-transition'}>
+            <div>
                 <p>Congrats, you win! You're awesome!</p>
+            </div>
         </Modal>
     )
 }
