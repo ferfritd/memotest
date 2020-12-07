@@ -2,7 +2,7 @@ import { v4 as uuidV4 } from "uuid";
 
 
 const addDeckToCollection = (deckObject) => {
-    console.log(deckObject)
+    
     const date = new Date().toLocaleDateString()
                 const time = new Date().toLocaleTimeString()
                 
