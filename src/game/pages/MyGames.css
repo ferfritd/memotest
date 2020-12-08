@@ -5,9 +5,11 @@
 }
 .info-card{
     width: calc(33.3% - 2rem);
-    max-height: 42rem;
+    max-height: 35rem;
     margin: 0 2rem 3rem 0;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
     box-shadow:
     0 1.6px 3.1px rgba(0, 0, 0, 0.031),
     0 4.1px 7.4px rgba(0, 0, 0, 0.044),
@@ -20,6 +22,27 @@
 .info-card h2,
 .info-card > p{
     color: #91a79c;
+}
+
+.info-card h2{
+    margin: 2rem 0 .5rem 0;
+}
+
+.info-card > p{
+    margin: .5rem 0 2rem 0;
+
+}
+
+@media (max-width: 757px) {
+    .info-card h2{
+        font-size: 1.8rem;
+    }
+
+    .buttons button,
+    .buttons a{
+        padding: .5rem .75rem;
+        font-size: 1.5rem;
+    }
 }
 
 .game-info{
@@ -43,6 +66,10 @@
     ;
 }
 
+.game-info p{
+    margin: 1rem 0 0 0;
+}
+
 .game-info::-webkit-scrollbar{
     width: .3rem;
 }
@@ -59,8 +86,12 @@
 .buttons{
     display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
+}
 
+.buttons button,
+.buttons a{
+    padding: 1rem 1.5rem;
+    flex: 1;
 }
 
 @media (max-width: 1250px) {
@@ -68,24 +99,21 @@
         width: calc(50% - 2rem);
     }   
 }
- 
-@media (max-width: 833px) {
+
+@media (max-width: 846px) {
+    .buttons{
+        flex-wrap: wrap;
+    }
+
     .buttons button,
     .buttons a{
-        padding: 1rem 1.5rem;
+        margin: .5rem;
+        flex: 0 0 calc(50% - 2rem);
+
     }
 }
 
-
-@media (max-width: 654px) {
-    .buttons button,
-    .buttons a{
-        padding: .5rem .75rem;
-        font-size: 2rem;
-    }
-}
-
-@media (max-width: 590px) {
+@media (max-width: 502px) {
     .buttons{
         flex-direction: column;
         justify-content: unset;
@@ -95,22 +123,13 @@
     .buttons a{
         display: block;
         margin: .2rem 0;
+        padding: .5rem .75rem;
         width: 80%;
         font-size: 1.4rem;
     }
-    .game-info{
-        height: 35%;
-    }
+    
 }
-
-@media (max-width: 590px){
-    .game-info{
-        height: 20%;
-    }
-    .info-card h2{
-        font-size: 2.3rem;
-    }
-}
+  
 
 .new-game-section{
     padding: 4rem;
