@@ -22,7 +22,7 @@ const restartGame = state => {
 
     state.gameLogic.forEach(card => {
         card.isTurned = false
-        
+        card.matched = false
     })
 }
 
@@ -69,6 +69,9 @@ const reducer = (state, action) => {
 
                 newState.remainingPairs = newState.remainingPairs - 1
 
+                newState.gameLogic[action.id].matched = true
+                newState.selectedCard.matched = true
+
                 if(newState.remainingPairs === 0){
                     newState.modalIsOpen = true
                 }
@@ -103,8 +106,8 @@ export default function Game(props) {
     
     const gameLogic = deckState.map(pair => {
 
-        const firstWord = {value:pair[0], isTurned:false}
-        const secondWord = {value:pair[1], isTurned:false}
+        const firstWord = {value:pair[0], isTurned:false, matched: false}
+        const secondWord = {value:pair[1], isTurned:false, matched: false}
         
         firstWord.pair = secondWord
         secondWord.pair = firstWord

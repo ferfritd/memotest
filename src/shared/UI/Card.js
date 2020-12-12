@@ -9,7 +9,7 @@ export default function Card({info, clicked, turn}) {
     return (
             <div className='card' onClick={!info.isTurned && isClickable ? clicked : () => {}}>
                 <div className={!info.isTurned ? "card-front grey-background" : "card-back"}>?</div>
-                <div className={!info.isTurned ? "card-back" : "card-front white-background"}>
+                <div className={!info.isTurned ? "card-back" : info.matched ? "card-front green-background" : "card-front white-background"}>
                     <p>
                         {info.value}
                     </p>

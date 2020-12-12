@@ -34,6 +34,7 @@ p.form-instructions{
     color: black;
     font-weight: normal;
     font-size: 1.6rem;
+    margin: 1rem 0 0 0;
 }
 
 .slow-transition{
@@ -82,5 +83,12 @@ p.form-instructions{
     .instructions-modal button{
         font-size: 1.5rem;
         margin: 2rem auto;
+    }
+}
+
+
+@media (max-width: 751px) {
+    .modal button{
+        font-size: 1.5rem;
     }
 }

@@ -167,13 +167,13 @@ export default function MyGames(props) {
                 :
                 <Fragment>
                     <Backdrop OnCloseBackdrop={openCloseModalHandler}/>
-                    <Modal acceptText='COPY' extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} onAccept={openCloseModalHandler}> 
+                    <Modal classes='share-URL-modal' acceptText='COPY' extraStyles={{top:`calc(50% + ${scrollPosition}px)`}} onAccept={openCloseModalHandler}> 
                         <p className="share-text">
                             {`For sharing "${deckToShare.title}" just send this link to your friends and it will be automatically added to their games. Click on the button below to copy it to your billboard`} 
                         </p>
                         <div className='URL-container'>
                             <p className="URL" ref={shareURL}>
-                                {`localhost:3000/shared/${encodeURIComponent(JSON.stringify(deckToShare))}`}
+                                {`https://kiokugame.netlify.app/shared/${encodeURIComponent(JSON.stringify(deckToShare))}`}
                             </p>
                         </div>
                     </Modal>

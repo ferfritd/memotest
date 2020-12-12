@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import {Helmet} from 'react-helmet'
 
 import { DeckContext } from '../../shared/Context/DeckContextProvider'
 
@@ -15,8 +16,6 @@ import "./GameForm.css";
 
 
 export default function EditGame(props) {
-
-    document.title = props.title
 
     const history = useHistory()
 
@@ -85,6 +84,11 @@ export default function EditGame(props) {
 
     return (
         <React.Fragment>
+
+        <Helmet>
+            <title>{`${props.title} | ${selectedDeck.title}`}</title>            
+        </Helmet>
+
             <h1 style={{textAlign:"center", marginBottom:"4rem"}}>Edit Deck</h1>
             <Box>
                 <form className="deck-form" onSubmit={submitFormHandler}>
